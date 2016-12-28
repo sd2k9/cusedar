@@ -32,11 +32,45 @@ var ReplyAsOriginalRecipient = {
     if (!this.isReply())
       return;
 
+
+    /* Debug Console Output */
+    // abc
+    // Components.utils.import("resource://gre/modules/Console.jsm");
+    let console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
+    // console.log("Hello Log World");
+    // dump dumps to Terminal; ok isn't it?
+    // dump("Hello Dump2 World\n");
+    // window.dump("Hello Window Dump2 World\n");
+
     /* Get original recipient */
     originalHeader = this.getMessageHeaderFromURI(gMsgCompose.originalMsgURI);
     originalRecipient = originalHeader.mime2DecodedRecipients;
+    /* Debug Output */
+    console.log("DEBUG: originalHeader.mime2DecodedRecipients = ",originalRecipient);
+    /* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
+    /* TODO: Commented out until configuration added */
+    /*
     if (originalRecipient.indexOf(",") != -1 || originalRecipient.indexOf("+") == -1)
       return;
+    */
+
+    // Bail out
+    var re_recipient = /abc-[\w\d]+@example.org/i;
+    /* Match Template: abc-tst@example.org, abc-tst2@example.org */
+    if (originalRecipient.search(re_recipient) == -1) {
+	console.log("DEBUG: RE NOT found - bailing out\n");
+	return;
+    }
+    console.log("DEBUG: RE found\n");
+    /* Filter out first match */
+    var re_result = re_recipient.exec(originalRecipient);
+    if (re_result == null) {  /* This should not happen, something went wrong */
+	console.error("ERROR: RE Exec for recipient failed after search succeeded before",
+	" - Something went wrong here!");
+	return;
+    }
+    originalRecipient = re_result[0];      /* Use match */
+    console.log("DEBUG: RE Recipient Isolated = ", originalRecipient);
 
     /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
     var customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
