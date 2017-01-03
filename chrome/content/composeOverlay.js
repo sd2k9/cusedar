@@ -43,10 +43,12 @@ var ReplyAsOriginalRecipient = {
     // window.dump("Hello Window Dump2 World\n");
 
     /* Get original recipient */
-    originalHeader = this.getMessageHeaderFromURI(gMsgCompose.originalMsgURI);
-    originalRecipient = originalHeader.mime2DecodedRecipients;
+    let originalHeader = this.getMessageHeaderFromURI(gMsgCompose.originalMsgURI);
+    let originalRecipient = originalHeader.mime2DecodedRecipients;  /* Fetch "To" header */
+    let originalCcList = originalHeader.ccList;  /* Fetch CC header */
     /* Debug Output */
-    console.log("DEBUG: originalHeader.mime2DecodedRecipients = ",originalRecipient);
+    console.log("DEBUG: originalHeader.mime2DecodedRecipients = ", originalRecipient);
+    console.log("DEBUG: originalHeader.ccList = ", originalCcList);
     /* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
     /* TODO: Commented out until configuration added */
     /*
@@ -54,16 +56,21 @@ var ReplyAsOriginalRecipient = {
       return;
     */
 
-    // Bail out
-    var re_recipient = /abc-[\w\d]+@example.org/i;
+    let re_recipient = /abc-[\w\d]+@example.org/i;
+    let match_recv = null;  /* String we're matching with */
     /* Match Template: abc-tst@example.org, abc-tst2@example.org */
-    if (originalRecipient.search(re_recipient) == -1) {
-	console.log("DEBUG: RE NOT found - bailing out\n");
+    if (originalRecipient.search(re_recipient) >= 0) {  /* First try recipient */
+	console.log("DEBUG: RE found in recipient\n");
+	match_recv = originalRecipient;
+    } else if (originalCcList.search(re_recipient) >= 0) {  /* Secondary try CC list */
+	console.log("DEBUG: RE found in CC list\n");
+	match_recv = originalCcList;
+    } else {
+	console.log("DEBUG: RE NOT found in recipient or CC - bailing out\n");
 	return;
     }
-    console.log("DEBUG: RE found\n");
-    /* Filter out first match */
-    var re_result = re_recipient.exec(originalRecipient);
+    /* Filter out first match, according to match string */
+    let re_result = re_recipient.exec(match_recv);
     if (re_result == null) {  /* This should not happen, something went wrong */
 	console.error("ERROR: RE Exec for recipient failed after search succeeded before",
 	" - Something went wrong here!");
@@ -73,10 +80,10 @@ var ReplyAsOriginalRecipient = {
     console.log("DEBUG: RE Recipient Isolated = ", originalRecipient);
 
     /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
-    var customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
+    let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
     customizeMenuitem.setAttribute("disabled", "true");
     customizeMenuitem.setAttribute("checked", "true");
-    var identityElement = document.getElementById("msgIdentity");
+    let identityElement = document.getElementById("msgIdentity");
     identityElement.removeAttribute("type");
     identityElement.editable = true;
     identityElement.focus(); // if we don't do this, we won't be able to send off our email. sounds odd but it's true
@@ -84,7 +91,7 @@ var ReplyAsOriginalRecipient = {
     identityElement.select();
 
     /* Return focus to editor */
-    var contentFrame = document.getElementById("content-frame");
+    let contentFrame = document.getElementById("content-frame");
     contentFrame.focus();
   },
 
