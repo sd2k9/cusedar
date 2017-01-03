@@ -1,9 +1,6 @@
-content fid             chrome/content/
-locale  fid en-US       chrome/locale/en-US/
-locale  fid ru-RU       chrome/locale/ru-RU/
-locale  fid fr-FR       chrome/locale/fr-FR/
-locale  fid de-DE       chrome/locale/de-DE/
-skin    fid classic/1.0 chrome/skin/classic/
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-overlay	chrome://messenger/content/messengercompose/messengercompose.xul chrome://fid/content/compose-overlay.xul
-overlay	chrome://messenger/content/messenger.xul                         chrome://fid/content/messenger-overlay.xul
+content replyasoriginalrecipient chrome/content/
+overlay chrome://messenger/content/messengercompose/messengercompose.xul chrome://replyasoriginalrecipient/content/composeOverlay.xul
