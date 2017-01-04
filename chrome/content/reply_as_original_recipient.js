@@ -74,8 +74,11 @@ var ReplyAsOriginalRecipient = {
 	" - Something went wrong here!");
 	return;
     }
-    originalRecipient = re_result[0];      /* Use match */
-    console.log("DEBUG: RE Recipient Isolated = ", originalRecipient);
+    /* Use match, correct format */
+    /* null: Sender Address, when available */
+    originalRecipient = MailServices.headerParser.makeMailboxObject(
+                        null, re_result[0]).toString()
+    console.log("DEBUG raor: RE Recipient Isolated = ", originalRecipient);
 
     /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
     let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
