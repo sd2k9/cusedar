@@ -20,6 +20,7 @@
     <tabs>
         <tab label="&options.rules;"/>
         <tab label="&options.other;"/>
+        <tab label="&options.reply.tab;"/>
     </tabs>
     <tabpanels flex="1" id="id-panels">
         <tabpanel>
@@ -91,9 +92,59 @@
                         oncommand="fidOptions.showRegExp();"/>
                     <label class="text-link indent" value="&options.show.regexp.description;"
                         onclick="fidOptions.openURL('&options.show.regexp.link;');"/>
+                    <checkbox id="id-debug-console" label="&options.debug.console;"/>
+                    <label class="indent" value="&options.debug.console.description;"/>
                 </groupbox>
             </vbox>
         </tabpanel>
+
+        <tabpanel>
+          <vbox flex="1" pack="start">
+            <caption label="&options.reply.description;"/>
+            <checkbox id="id-reply-enable" label="&options.reply.enable;"/>
+            <label class="indent" value="&options.reply.enable.description;"/>
+            <spacer class="button-gap"/>
+            <grid flex="1">
+                <columns>
+                    <column/>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+
+		    <row align="center">
+                        <label value="&options.reply.regexp;"/>
+                        <textbox id="id-reply-regexp"/>
+                    </row>
+		    <row>
+		        <spacer/>
+                        <label class="indent" value="&options.reply.regexp.description1;"/>
+                    </row>
+		    <row>
+		        <spacer/>
+                        <label class="indent" value="&options.reply.regexp.description2;"/>
+                    </row>
+
+                    <row>
+                      <spacer/>
+		      <vbox flex="1" pack="start">
+                        <checkbox id="id-reply-checkcc" label="&options.reply.checkcc;"/>
+                        <label class="indent" value="&options.reply.checkcc.description;"/>
+		      </vbox>
+                    </row>
+
+		    <row align="center">
+                        <label value="&options.reply.sendername;"/>
+                        <textbox id="id-reply-sendername"/>
+                    </row>
+		    <row>
+		        <spacer/>
+                        <label class="indent" value="&options.reply.sendername.description;"/>
+                    </row>
+                </rows>
+            </grid>
+          </vbox>
+	</tabpanel>
+
     </tabpanels>
 </tabbox>
 

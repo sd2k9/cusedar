@@ -20,3 +20,17 @@
 <!ENTITY options.show.regexp.description "Узнать больше о регулярных выражениях">
 <!ENTITY options.show.regexp.link "http://ru.wikipedia.org/wiki/&#37;D0&#37;A0&#37;D0&#37;B5&#37;D0&#37;B3&#37;D1&#37;83&#37;D0&#37;BB&#37;D1&#37;8F&#37;D1&#37;80&#37;D0&#37;BD&#37;D1&#37;8B&#37;D0&#37;B5_&#37;D0&#37;B2&#37;D1&#37;8B&#37;D1&#37;80&#37;D0&#37;B0&#37;D0&#37;B6&#37;D0&#37;B5&#37;D0&#37;BD&#37;D0&#37;B8&#37;D1&#37;8F">
 <!ENTITY options.check.draft "Проверять адресатов перед тем как сохранить письмо в папку &quot;Черновики&quot;">
+<!ENTITY options.reply.tab "Reply Options">
+<!ENTITY options.reply.description "Reply as original recipient">
+<!ENTITY options.reply.enable "Enable">
+<!ENTITY options.reply.enable.description "When enabled and a match is found, flexible identity is disabled for this message">
+<!ENTITY options.reply.regexp "Regexp">
+<!ENTITY options.reply.regexp.description1 "Recipient regular expression to trigger replacement">
+<!ENTITY options.reply.regexp.description2 "When empty, search for + as subadressing separator">
+<!ENTITY options.reply.checkcc "Also search CC for original recipient when a regular expression is given">
+<!ENTITY options.reply.checkcc.description "By default only look into the To field">
+<!ENTITY options.reply.sendername "Sendername">
+<!ENTITY options.reply.sendername.description "With regular expression and this field empty the From field is mail address only">
+<!ENTITY options.reply.debug "Debug Options">
+<!ENTITY options.debug.console "Enable debug console output">
+<!ENTITY options.debug.console.description "Send internal debug output to console, enable for bug reports">

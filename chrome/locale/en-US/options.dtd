@@ -20,3 +20,17 @@
 <!ENTITY options.show.regexp.description "Learn more about Regular Expressions">
 <!ENTITY options.show.regexp.link "http://en.wikipedia.org/wiki/Regular_expression">
 <!ENTITY options.check.draft "Correct identity before saving message into the draft folder">
+<!ENTITY options.reply.tab "Reply Options">
+<!ENTITY options.reply.description "Reply as original recipient">
+<!ENTITY options.reply.enable "Enable">
+<!ENTITY options.reply.enable.description "When enabled and a match is found, flexible identity is disabled for this message">
+<!ENTITY options.reply.regexp "Regexp">
+<!ENTITY options.reply.regexp.description1 "Recipient regular expression to trigger replacement">
+<!ENTITY options.reply.regexp.description2 "When empty, search for + as subadressing separator">
+<!ENTITY options.reply.checkcc "Also search CC for original recipient when a regular expression is given">
+<!ENTITY options.reply.checkcc.description "By default only look into the To field">
+<!ENTITY options.reply.sendername "Sendername">
+<!ENTITY options.reply.sendername.description "With regular expression and this field empty the From field is mail address only">
+<!ENTITY options.reply.debug "Debug Options">
+<!ENTITY options.debug.console "Enable debug console output">
+<!ENTITY options.debug.console.description "Send internal debug output to console, enable for bug reports">
