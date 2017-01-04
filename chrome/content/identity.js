@@ -79,11 +79,17 @@ checkRules: function(willSend) {
     let cmb = document.getElementById('msgIdentity');
     let idx = this.ro.match(this.getRecipients());
 
+    /* Debug Console Output */
+    let console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
+    console.log("DEBUG fid: idx = ", idx);
+
     if (idx != -1) {
         let r = this.ro.rules[idx];
         let key = r.account;
         let useAttr = cmb.selectedItem.hasAttribute('identitykey');
         let from = useAttr ? cmb.selectedItem.getAttribute('identitykey') : cmb.value;
+	console.log("DEBUG fid: key = ", key);
+	console.log("DEBUG fid: from = ", from);
         let fixError = true;
 
         if (key != from && key) {
@@ -122,8 +128,11 @@ checkRules: function(willSend) {
                     let identity = this.ro.mgr.getIdentity(key);
                     cmb.value = MailServices.headerParser.makeMailboxObject(
                         identity.fullName, identity.email).toString();
-                } else
+		    console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
+                } else {
                     cmb.value = key;
+		    console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
+		}
 
                 LoadIdentity(false); // thanks to Bruce Jolliffe
             }

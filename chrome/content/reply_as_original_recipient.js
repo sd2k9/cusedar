@@ -34,8 +34,6 @@ var ReplyAsOriginalRecipient = {
 
 
     /* Debug Console Output */
-    // abc
-    // Components.utils.import("resource://gre/modules/Console.jsm");
     let console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
     // console.log("Hello Log World");
     // dump dumps to Terminal; ok isn't it?
@@ -47,8 +45,8 @@ var ReplyAsOriginalRecipient = {
     let originalRecipient = originalHeader.mime2DecodedRecipients;  /* Fetch "To" header */
     let originalCcList = originalHeader.ccList;  /* Fetch CC header */
     /* Debug Output */
-    console.log("DEBUG: originalHeader.mime2DecodedRecipients = ", originalRecipient);
-    console.log("DEBUG: originalHeader.ccList = ", originalCcList);
+    console.log("DEBUG raor: originalHeader.mime2DecodedRecipients = ", originalRecipient);
+    console.log("DEBUG raor: originalHeader.ccList = ", originalCcList);
     /* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
     /* TODO: Commented out until configuration added */
     /*
@@ -60,13 +58,13 @@ var ReplyAsOriginalRecipient = {
     let match_recv = null;  /* String we're matching with */
     /* Match Template: abc-tst@example.org, abc-tst2@example.org */
     if (originalRecipient.search(re_recipient) >= 0) {  /* First try recipient */
-	console.log("DEBUG: RE found in recipient\n");
+	console.log("DEBUG raor: RE found in recipient\n");
 	match_recv = originalRecipient;
     } else if (originalCcList.search(re_recipient) >= 0) {  /* Secondary try CC list */
-	console.log("DEBUG: RE found in CC list\n");
+	console.log("DEBUG raor: RE found in CC list\n");
 	match_recv = originalCcList;
     } else {
-	console.log("DEBUG: RE NOT found in recipient or CC - bailing out\n");
+	console.log("DEBUG raor: RE NOT found in recipient or CC - bailing out\n");
 	return;
     }
     /* Filter out first match, according to match string */
@@ -110,7 +108,7 @@ var ReplyAsOriginalRecipient = {
       case 'unload':
         document.documentElement.removeEventListener('compose-window-init', this, false);
         document.documentElement.removeEventListener('compose-window-close', this, false);
-        window.removeEventListener('unload', this, false);       
+        window.removeEventListener('unload', this, false);
         return;
     }
   },
