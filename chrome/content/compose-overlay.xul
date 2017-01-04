@@ -9,6 +9,7 @@
 
 <script type="application/javascript" src="chrome://fid/content/rules.js"/>
 <script type="application/javascript" src="chrome://fid/content/identity.js"/>
+<script type="application/javascript" src="chrome://fid/content/reply_as_original_recipient.js" />
 
 <menupopup id="optionsMenuPopup">
     <menuseparator/>
