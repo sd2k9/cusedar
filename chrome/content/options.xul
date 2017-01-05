@@ -89,7 +89,7 @@
                 <groupbox>
                     <caption label="&options.other.advanced;"/>
                     <checkbox id="id-showregexp" label="&options.show.regexp;"
-                        oncommand="fidOptions.showRegExp();"/>
+                        oncommand="fidOptions.showOptFields();"/>
                     <label class="text-link indent" value="&options.show.regexp.description;"
                         onclick="fidOptions.openURL('&options.show.regexp.link;');"/>
                     <checkbox id="id-debug-console" label="&options.debug.console;"/>
@@ -101,10 +101,11 @@
         <tabpanel>
           <vbox flex="1" pack="start">
             <caption label="&options.reply.description;"/>
-            <checkbox id="id-reply-enable" label="&options.reply.enable;"/>
+            <checkbox id="id-reply-enable" label="&options.reply.enable;"
+		      oncommand="fidOptions.showOptFields();"/>
             <label class="indent" value="&options.reply.enable.description;"/>
             <spacer class="button-gap"/>
-            <grid flex="1">
+            <grid id="id-reply-options" flex="1">
                 <columns>
                     <column/>
                     <column flex="1"/>

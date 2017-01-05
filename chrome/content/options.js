@@ -207,11 +207,17 @@ fillPrefs: function() {
     let prefs = Components.classes['@mozilla.org/preferences-service;1'].
        getService(Components.interfaces.nsIPrefBranch);
 
-    document.getElementById('id-checkcc').checked = prefs.getBoolPref('extensions.fid.check.cc');
-    document.getElementById('id-checkdraft').checked = prefs.getBoolPref('extensions.fid.check.draft');
-    document.getElementById('id-showregexp').checked = prefs.getBoolPref('extensions.fid.show.regexp');
+    document.getElementById('id-checkcc').checked        = prefs.getBoolPref('extensions.fid.check.cc');
+    document.getElementById('id-checkdraft').checked     = prefs.getBoolPref('extensions.fid.check.draft');
+    document.getElementById('id-showregexp').checked     = prefs.getBoolPref('extensions.fid.show.regexp');
+    document.getElementById('id-debug-console').checked  = prefs.getBoolPref('extensions.fid.debug.console');
 
-    this.showRegExp();
+    document.getElementById('id-reply-enable').checked   = prefs.getBoolPref('extensions.fid.reply.enable');
+    document.getElementById('id-reply-checkcc').checked  = prefs.getBoolPref('extensions.fid.reply.checkcc');
+    document.getElementById('id-reply-regexp').value     = prefs.getCharPref('extensions.fid.reply.regexp');
+    document.getElementById('id-reply-sendername').value = prefs.getCharPref('extensions.fid.reply.sendername');
+
+    this.showOptFields();
 },
 
 savePrefs: function() {
@@ -221,6 +227,12 @@ savePrefs: function() {
     prefs.setBoolPref('extensions.fid.check.cc', document.getElementById('id-checkcc').checked);
     prefs.setBoolPref('extensions.fid.check.draft', document.getElementById('id-checkdraft').checked);
     prefs.setBoolPref('extensions.fid.show.regexp', document.getElementById('id-showregexp').checked);
+    prefs.setBoolPref('extensions.fid.debug.console', document.getElementById('id-debug-console').checked);
+
+    prefs.setBoolPref('extensions.fid.reply.enable', document.getElementById('id-reply-enable').checked);
+    prefs.setBoolPref('extensions.fid.reply.checkcc', document.getElementById('id-reply-checkcc').checked);
+    prefs.setCharPref('extensions.fid.reply.regexp', document.getElementById('id-reply-regexp').value);
+    prefs.setCharPref('extensions.fid.reply.sendername', document.getElementById('id-reply-sendername').value);
 },
 
 openURL: function(aURL) {
@@ -230,8 +242,12 @@ openURL: function(aURL) {
     msg.launchExternalURL(aURL);
 },
 
-showRegExp: function() {
+showOptFields: function() {
+    /* Show regexp for rules only when enabled */
     document.getElementById('id-regex').hidden = !document.getElementById('id-showregexp').checked;
+    /* Show reply settings only when enabled */
+    let hide_reply_opts = !document.getElementById('id-reply-enable').checked
+    document.getElementById('id-reply-options').hidden = hide_reply_opts;
 }
 
 } // fidOptions
