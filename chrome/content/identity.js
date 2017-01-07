@@ -1,6 +1,17 @@
 var fidIdentity = {
 
 onLoad: function() {
+
+    /* Debug logger - print when not-null */
+    this.console = null;
+    try {
+	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
+            getService(Components.interfaces.nsIPrefBranch);
+	let pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
+	if (pref_debug)  /* We want to print, so we fetch the console */
+	    this.console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
+    } catch (ex) {Components.utils.reportError(ex);}
+
     try {
         this.ro = new fidRules();
         this.embedIntoCompose();
@@ -80,16 +91,18 @@ checkRules: function(willSend) {
     let idx = this.ro.match(this.getRecipients());
 
     /* Debug Console Output */
-    let console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
-    console.log("DEBUG fid: idx = ", idx);
+    if (this.console)
+	this.console.log("DEBUG fid: idx = ", idx);
 
     if (idx != -1) {
         let r = this.ro.rules[idx];
         let key = r.account;
         let useAttr = cmb.selectedItem.hasAttribute('identitykey');
         let from = useAttr ? cmb.selectedItem.getAttribute('identitykey') : cmb.value;
-	console.log("DEBUG fid: key = ", key);
-	console.log("DEBUG fid: from = ", from);
+	if (this.console) {
+	    this.console.log("DEBUG fid: key = ", key);
+	    this.console.log("DEBUG fid: from = ", from);
+	}
         let fixError = true;
 
         if (key != from && key) {
@@ -128,10 +141,12 @@ checkRules: function(willSend) {
                     let identity = this.ro.mgr.getIdentity(key);
                     cmb.value = MailServices.headerParser.makeMailboxObject(
                         identity.fullName, identity.email).toString();
-		    console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
+		    if (this.console)
+			this.console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
                 } else {
                     cmb.value = key;
-		    console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
+		    if (this.console)
+			this.console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
 		}
 
                 LoadIdentity(false); // thanks to Bruce Jolliffe

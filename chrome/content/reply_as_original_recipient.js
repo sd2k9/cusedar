@@ -33,52 +33,98 @@ var ReplyAsOriginalRecipient = {
       return;
 
 
+    /* Get all preferences, catch exception and report it (e.g. preference not existing) */
+    let pref_debug;
+    let pref_enable;
+    let pref_cc;
+    let pref_regexp;
+    let pref_sendername;
+    try {
+	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
+        getService(Components.interfaces.nsIPrefBranch);
+
+	pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
+        pref_enable = prefs.getBoolPref('extensions.fid.reply.enable');
+	pref_cc     = prefs.getBoolPref('extensions.fid.reply.checkcc');
+	pref_regexp = prefs.getCharPref('extensions.fid.reply.regexp');
+	pref_sendername = prefs.getCharPref('extensions.fid.reply.sendername');
+    } catch (ex) {Components.utils.reportError(ex);}
+
     /* Debug Console Output */
-    let console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
+    let console = null;
+    if (pref_debug)
+	console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
     // console.log("Hello Log World");
     // dump dumps to Terminal; ok isn't it?
     // dump("Hello Dump2 World\n");
     // window.dump("Hello Window Dump2 World\n");
 
+    if (!pref_enable) {
+	if (pref_debug)
+	    console.log("DEBUG raor: Reply handling disabled by configuration, doing nothing");
+	return;
+    }
+
     /* Get original recipient */
     let originalHeader = this.getMessageHeaderFromURI(gMsgCompose.originalMsgURI);
     let originalRecipient = originalHeader.mime2DecodedRecipients;  /* Fetch "To" header */
-    let originalCcList = originalHeader.ccList;  /* Fetch CC header */
     /* Debug Output */
-    console.log("DEBUG raor: originalHeader.mime2DecodedRecipients = ", originalRecipient);
-    console.log("DEBUG raor: originalHeader.ccList = ", originalCcList);
-    /* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
-    /* TODO: Commented out until configuration added */
-    /*
-    if (originalRecipient.indexOf(",") != -1 || originalRecipient.indexOf("+") == -1)
-      return;
-    */
-
-    let re_recipient = /abc-[\w\d]+@example.org/i;
-    let match_recv = null;  /* String we're matching with */
-    /* Match Template: abc-tst@example.org, abc-tst2@example.org */
-    if (originalRecipient.search(re_recipient) >= 0) {  /* First try recipient */
-	console.log("DEBUG raor: RE found in recipient\n");
-	match_recv = originalRecipient;
-    } else if (originalCcList.search(re_recipient) >= 0) {  /* Secondary try CC list */
-	console.log("DEBUG raor: RE found in CC list\n");
-	match_recv = originalCcList;
-    } else {
-	console.log("DEBUG raor: RE NOT found in recipient or CC - bailing out\n");
-	return;
-    }
-    /* Filter out first match, according to match string */
-    let re_result = re_recipient.exec(match_recv);
-    if (re_result == null) {  /* This should not happen, something went wrong */
-	console.error("ERROR: RE Exec for recipient failed after search succeeded before",
-	" - Something went wrong here!");
-	return;
-    }
-    /* Use match, correct format */
-    /* null: Sender Address, when available */
-    originalRecipient = MailServices.headerParser.makeMailboxObject(
-                        null, re_result[0]).toString()
-    console.log("DEBUG raor: RE Recipient Isolated = ", originalRecipient);
+    if (pref_debug)
+	console.log("DEBUG raor: originalHeader.mime2DecodedRecipients = ", originalRecipient);
+    if (pref_regexp.length == 0) {
+	if (pref_debug)
+	    console.log("DEBUG raor: Using default matching with +");
+	/* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
+	if (originalRecipient.indexOf(",") != -1 || originalRecipient.indexOf("+") == -1) {
+	    if (pref_debug)
+		console.log("DEBUG raor: No default match found - bailing out\n");
+	    return;
+	}
+    } else {  /* if (pref_regexp.length == 0) */
+        /* Use regexp from config dialog */
+	let re_recipient = new RegExp(pref_regexp, "i");
+	let match_recv = null;  /* String we're matching with */
+	if (pref_debug)
+	    console.log("DEBUG raor: Using regex for case insensitive match = ", pref_regexp);
+	if (originalRecipient.search(re_recipient) >= 0) {  /* First try recipient */
+	    if (pref_debug)
+		console.log("DEBUG raor: regex found in recipient\n");
+	    match_recv = originalRecipient;
+	} else if (pref_cc) {
+	    let originalCcList = originalHeader.ccList;  /* Fetch CC header */
+	    if (pref_debug) {
+		console.log("DEBUG raor: Check also CC list (enabled in configuration)\n");
+		console.log("DEBUG raor: originalHeader.ccList = ", originalCcList);
+	    }
+	    if (originalCcList.search(re_recipient) >= 0) {  /* Secondary try CC list */
+		if (pref_debug)
+		    console.log("DEBUG raor: regex found in CC list\n");
+		match_recv = originalCcList;
+	    }
+	}
+	if (match_recv == null) {   /* No match found, so we're done here */
+	    if (pref_debug)
+		console.log("DEBUG raor: regex NOT found in recipient or CC (when enabled) - bailing out\n");
+	    return;
+	}
+	/* Filter out first match, according to match string */
+	let re_result = re_recipient.exec(match_recv);
+	if (re_result == null) {  /* This should not happen, something went wrong */
+	    if (pref_debug)
+		console.error("ERROR: regex exec for recipient failed after search succeeded before",
+			      " - Something went wrong here!");
+	    return;
+	}
+	/* Use match, correct format */
+	let sendername = null;
+	if (pref_sendername.length > 0) /* Sender name from configuration */
+	    sendername = pref_sendername;
+	/* else: No sender name configured */
+	originalRecipient = MailServices.headerParser.makeMailboxObject(
+            sendername, re_result[0]).toString()
+    }  /* if (pref_regexp.length == 0) */
+    if (pref_debug)
+	console.log("DEBUG raor: RE Recipient Isolated = ", originalRecipient);
 
     /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
     let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
