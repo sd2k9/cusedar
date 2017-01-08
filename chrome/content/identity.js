@@ -15,6 +15,12 @@ onLoad: function() {
     try {
         this.ro = new fidRules();
         this.embedIntoCompose();
+	this.raor = null;          /* Reference to raor */
+	if ('ReplyAsOriginalRecipient' in window)
+	    this.raor = window.ReplyAsOriginalRecipient;
+	else /* something went wrong, but just report it */
+	    if (this.console)
+		this.console.error("ERROR fid: Did not found ReplyAsOriginalRecipient in window object!");
     } catch (ex) {Components.utils.reportError(ex);}
 },
 
@@ -48,11 +54,15 @@ embedIntoCompose: function() {
 
 checkAndSend: function(aCallback) {
     try {
-        if (!this.checkCC())
-            return;
-
-        if (!this.checkRules(true))
-            return;
+	if ( (! this.raor) || (this.raor.success == false) ) {
+	    /* Only check for replacement when raor did not already replaced the sender */
+            if (!this.checkCC())
+		return;
+            if (!this.checkRules(true))
+		return;
+	} else if (this.console) { /* Debug output when requested */
+	    this.console.log("DEBUG fid: No action, because raor did ran (1)");
+	}
     } catch(ex) {Components.utils.reportError(ex);}
 
     aCallback();
@@ -210,19 +220,29 @@ checkCC: function() {
 
 genericSend: function(aType, aCallback) {
     try {
-        if (aType == nsIMsgCompDeliverMode.SaveAsDraft && !this.checkDraft())
-            return;
+	if ( (! this.raor) || (this.raor.success == false) ) {
+	    /* Only check for replacement when raor did not already replaced the sender */
+            if (aType == nsIMsgCompDeliverMode.SaveAsDraft && !this.checkDraft())
+		return;
+	} else if (this.console) { /* Debug output when requested */
+	    this.console.log("DEBUG fid: No action, because raor did ran (2)");
+	}
     } catch(ex) {Components.utils.reportError(ex);}
 
     aCallback(aType);
 },
 
 checkDraft: function() {
-    let prefs = Components.classes['@mozilla.org/preferences-service;1'].
-        getService(Components.interfaces.nsIPrefBranch);
-
-    return prefs.getBoolPref('extensions.fid.check.draft') ?
-        this.checkRules(false) : true;
+    if ( (! this.raor) || (this.raor.success == false) ) {
+	/* Only check for replacement when raor did not already replaced the sender */
+	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
+            getService(Components.interfaces.nsIPrefBranch);
+	return prefs.getBoolPref('extensions.fid.check.draft') ?
+            this.checkRules(false) : true;
+    } else if (this.console) { /* Debug output when requested */
+	this.console.log("DEBUG fid: No action, because raor did ran (3)");
+	return true;
+    }
 },
 
 } // fidOptions

@@ -29,9 +29,14 @@ var ReplyAsOriginalRecipient = {
   },
 
   init: function() {
+    /* This will be checked by fid to disable flexible identity replacement when
+	 raor already replaced the From field (when success == true) */
+    this.success = false;  /* Initially set to false */
+    // Extra Debug (disabled)
+    // (Components.utils.import("resource://gre/modules/Console.jsm", {})).console.log("DEBUG raor: success = ", this.success);
+
     if (!this.isReply())
       return;
-
 
     /* Get all preferences, catch exception and report it (e.g. preference not existing) */
     let pref_debug;
@@ -124,7 +129,7 @@ var ReplyAsOriginalRecipient = {
             sendername, re_result[0]).toString()
     }  /* if (pref_regexp.length == 0) */
     if (pref_debug)
-	console.log("DEBUG raor: RE Recipient Isolated = ", originalRecipient);
+	console.log("DEBUG raor: Success RE Recipient Isolated = ", originalRecipient);
 
     /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
     let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
@@ -136,6 +141,9 @@ var ReplyAsOriginalRecipient = {
     identityElement.focus(); // if we don't do this, we won't be able to send off our email. sounds odd but it's true
     identityElement.value = originalRecipient;
     identityElement.select();
+    /* This will be checked by fid to disable flexible identity replacement when
+	 raor already replaced the From field (when success == true) */
+    this.success = true;  /* Now change it to true, because we did run */
 
     /* Return focus to editor */
     let contentFrame = document.getElementById("content-frame");
