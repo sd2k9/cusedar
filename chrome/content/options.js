@@ -231,8 +231,8 @@ savePrefs: function() {
 
     prefs.setBoolPref('extensions.fid.reply.enable', document.getElementById('id-reply-enable').checked);
     prefs.setBoolPref('extensions.fid.reply.checkcc', document.getElementById('id-reply-checkcc').checked);
-    prefs.setCharPref('extensions.fid.reply.regexp', document.getElementById('id-reply-regexp').value);
-    prefs.setCharPref('extensions.fid.reply.sendername', document.getElementById('id-reply-sendername').value);
+    prefs.setCharPref('extensions.fid.reply.regexp', document.getElementById('id-reply-regexp').value.trim());
+    prefs.setCharPref('extensions.fid.reply.sendername', document.getElementById('id-reply-sendername').value.trim());
 },
 
 openURL: function(aURL) {
