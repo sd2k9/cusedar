@@ -28,6 +28,20 @@ var ReplyAsOriginalRecipient = {
                      .msgHdrFromURI(aURI);
   },
 
+  setSender: function(name) {
+    /* Set the sender of this mail to name */
+    /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
+    let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
+    customizeMenuitem.setAttribute("disabled", "true");
+    customizeMenuitem.setAttribute("checked", "true");
+    let identityElement = document.getElementById("msgIdentity");
+    identityElement.removeAttribute("type");
+    identityElement.editable = true;
+    identityElement.focus(); // if we don't do this, we won't be able to send off our email. sounds odd but it's true
+    identityElement.value = name;
+    identityElement.select();
+  },
+
   init: function() {
     /* This will be checked by fid to disable flexible identity replacement when
 	 raor already replaced the From field (when success == true) */
@@ -131,16 +145,7 @@ var ReplyAsOriginalRecipient = {
     if (pref_debug)
 	console.log("DEBUG raor: Success RE Recipient Isolated = ", originalRecipient);
 
-    /* Adapted from mail/components/compose/content/MsgComposeCommands.js */
-    let customizeMenuitem = document.getElementById("cmd_customizeFromAddress");
-    customizeMenuitem.setAttribute("disabled", "true");
-    customizeMenuitem.setAttribute("checked", "true");
-    let identityElement = document.getElementById("msgIdentity");
-    identityElement.removeAttribute("type");
-    identityElement.editable = true;
-    identityElement.focus(); // if we don't do this, we won't be able to send off our email. sounds odd but it's true
-    identityElement.value = originalRecipient;
-    identityElement.select();
+    this.setSender(originalRecipient);   /* Now update the sender */
     /* This will be checked by fid to disable flexible identity replacement when
 	 raor already replaced the From field (when success == true) */
     this.success = true;  /* Now change it to true, because we did run */
