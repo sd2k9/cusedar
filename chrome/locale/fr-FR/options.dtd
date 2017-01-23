@@ -32,5 +32,7 @@
 <!ENTITY options.reply.sendername "Sendername">
 <!ENTITY options.reply.sendername.description "With regular expression and this field empty the From field is mail address only">
 <!ENTITY options.reply.debug "Debug Options">
+<!ENTITY options.addressbook "Look up address book first before applying custom rules">
+<!ENTITY options.addressbook.description "Use the value from field Custom 3 as replacement when it is defined">
 <!ENTITY options.debug.console "Enable debug console output">
 <!ENTITY options.debug.console.description "Send internal debug output to console, enable for bug reports">

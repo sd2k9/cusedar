@@ -92,6 +92,8 @@
                         oncommand="fidOptions.showOptFields();"/>
                     <label class="text-link indent" value="&options.show.regexp.description;"
                         onclick="fidOptions.openURL('&options.show.regexp.link;');"/>
+                    <checkbox id="id-addr" label="&options.addressbook;"/>
+                    <label class="indent" value="&options.addressbook.description;"/>
                     <checkbox id="id-debug-console" label="&options.debug.console;"/>
                     <label class="indent" value="&options.debug.console.description;"/>
                 </groupbox>

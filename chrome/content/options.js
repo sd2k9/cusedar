@@ -210,6 +210,7 @@ fillPrefs: function() {
     document.getElementById('id-checkcc').checked        = prefs.getBoolPref('extensions.fid.check.cc');
     document.getElementById('id-checkdraft').checked     = prefs.getBoolPref('extensions.fid.check.draft');
     document.getElementById('id-showregexp').checked     = prefs.getBoolPref('extensions.fid.show.regexp');
+    document.getElementById('id-addr').checked           = prefs.getBoolPref('extensions.fid.addressbook');
     document.getElementById('id-debug-console').checked  = prefs.getBoolPref('extensions.fid.debug.console');
 
     document.getElementById('id-reply-enable').checked   = prefs.getBoolPref('extensions.fid.reply.enable');
@@ -224,14 +225,15 @@ savePrefs: function() {
     let prefs = Components.classes['@mozilla.org/preferences-service;1'].
        getService(Components.interfaces.nsIPrefBranch);
 
-    prefs.setBoolPref('extensions.fid.check.cc', document.getElementById('id-checkcc').checked);
-    prefs.setBoolPref('extensions.fid.check.draft', document.getElementById('id-checkdraft').checked);
-    prefs.setBoolPref('extensions.fid.show.regexp', document.getElementById('id-showregexp').checked);
+    prefs.setBoolPref('extensions.fid.check.cc',      document.getElementById('id-checkcc').checked);
+    prefs.setBoolPref('extensions.fid.check.draft',   document.getElementById('id-checkdraft').checked);
+    prefs.setBoolPref('extensions.fid.show.regexp',   document.getElementById('id-showregexp').checked);
+    prefs.setBoolPref('extensions.fid.addressbook',   document.getElementById('id-addr').checked);
     prefs.setBoolPref('extensions.fid.debug.console', document.getElementById('id-debug-console').checked);
 
-    prefs.setBoolPref('extensions.fid.reply.enable', document.getElementById('id-reply-enable').checked);
+    prefs.setBoolPref('extensions.fid.reply.enable',  document.getElementById('id-reply-enable').checked);
     prefs.setBoolPref('extensions.fid.reply.checkcc', document.getElementById('id-reply-checkcc').checked);
-    prefs.setCharPref('extensions.fid.reply.regexp', document.getElementById('id-reply-regexp').value.trim());
+    prefs.setCharPref('extensions.fid.reply.regexp',  document.getElementById('id-reply-regexp').value.trim());
     prefs.setCharPref('extensions.fid.reply.sendername', document.getElementById('id-reply-sendername').value.trim());
 },
 
