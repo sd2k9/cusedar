@@ -4,16 +4,17 @@ onLoad: function() {
 
     /* Debug logger - print when not-null */
     this.console = null;
+    let pref_debug = null;
     try {
 	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
             getService(Components.interfaces.nsIPrefBranch);
-	let pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
+	pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
 	if (pref_debug)  /* We want to print, so we fetch the console */
 	    this.console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
     } catch (ex) {Components.utils.reportError(ex);}
 
     try {
-        this.ro = new fidRules();
+        this.ro = new fidRules(pref_debug);  /* C'tor with debug console */
         this.embedIntoCompose();
 	this.raor = null;          /* Reference to raor */
 	if ('ReplyAsOriginalRecipient' in window)

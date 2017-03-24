@@ -1,15 +1,24 @@
-function fidRules() {
-    this.init();
+function fidRules(debugEnable) {
+    /* debugEnable: True when debug output is requested */
+    this.init(debugEnable);
 }
 
 fidRules.prototype = {
 
-init: function() {
+init: function(debugEnable) {
+    /* debugEnable: True when debug output is requested */
+
     this.bundle = Components.classes['@mozilla.org/intl/stringbundle;1'].
         getService(Components.interfaces.nsIStringBundleService).
         createBundle('chrome://fid/locale/rules.properties');
     this.mgr = Components.classes['@mozilla.org/messenger/account-manager;1'].
         getService(Components.interfaces.nsIMsgAccountManager)
+    if (debugEnable) {
+	/* Fetch debug console */
+	this.console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
+    } else {
+	this.console = null; /* No Debug output */
+    }
 
     this.load();
 },
@@ -42,7 +51,7 @@ save: function() {
 },
 
 path: function() {
-    let file =Components.classes['@mozilla.org/file/directory_service;1'].
+    let file = Components.classes['@mozilla.org/file/directory_service;1'].
         getService(Components.interfaces.nsIProperties).
         get("ProfD", Components.interfaces.nsIFile);
 
