@@ -129,6 +129,7 @@ stEmpty: function(aValue) {
 },
 
 match: function(aValue) {
+    /* Check stored rules, return index into rules array */
     for each (let cur in aValue) {
         let idx = this.matchItem(cur);
 
@@ -137,6 +138,49 @@ match: function(aValue) {
     }
 
     return -1;
+},
+
+
+matchAddrbook: function(aValue) {
+ /* Try to find match for aValue in adress book
+    Returns either the address found in Custom3, or null when no match */
+ if (this.console) {
+     this.console.log("DEBUG rules: addrbook checking addrbook for = ", aValue);
+ }
+ // First fetch a nsIAbCollection
+ let abManager = Components.classes["@mozilla.org/abmanager;1"]
+     .getService(Components.interfaces.nsIAbManager);
+ let allAddressBooks = abManager.directories;
+ let collection = null;
+ let abfrom = null;   /* From fetched from adress book */
+ while ( (abfrom == null) && allAddressBooks.hasMoreElements() ) {
+     let addressBook = allAddressBooks.getNext()
+         .QueryInterface(Components.interfaces.nsIAbDirectory);
+     if (addressBook instanceof Components.interfaces.nsIAbCollection) {
+	 collection = addressBook; // TODO: Could cache collections and re-use them
+	 if (this.console) {
+	     console.log("DEBUG rules: addrbook Directory Name = ", addressBook.dirName);
+	 }
+	 if (collection) {
+	     // Then get the first card which matches this email address
+	     /* Field names: https://dxr.mozilla.org/comm-central/source/mailnews/addrbook/public/nsIAbCard.idl */
+	     for each (let cur in aValue) {
+		 console.log("DEBUG rules: addrbook checking for ", cur.email);
+		 let card = collection.cardForEmailAddress(cur.email);
+		 if (card) {
+		     abfrom = card.getProperty("Custom3", null);
+		     if (this.console) {
+			 console.log("DEBUG rules: addrbook card = ", card);
+			 console.log("DEBUG rules: addrbook Custom 3 = ", abfrom);
+		     }
+		     break; /* Exit inner loop, out loop will be exited with abfrom != null */
+		 }
+	     }
+	 }
+     }
+ }
+ // abfrom contains the from adress, null when no match
+ return abfrom;
 },
 
 fixRules: function() {

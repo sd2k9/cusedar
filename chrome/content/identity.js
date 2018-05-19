@@ -98,73 +98,110 @@ getRecipients: function() {
 },
 
 checkRules: function(willSend) {
-    let cmb = document.getElementById('msgIdentity');
-    let idx = this.ro.match(this.getRecipients());
+    /* Get Options */
+    let pref_sendername;
+    let pref_addrbook;
+    try {
+	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
+            getService(Components.interfaces.nsIPrefBranch);
+	pref_sendername = prefs.getCharPref('extensions.fid.reply.sendername');
+	pref_addrbook = prefs.getBoolPref('extensions.fid.addressbook');
+    } catch (ex) {Components.utils.reportError(ex);}
 
-    /* Debug Console Output */
-    if (this.console)
-	this.console.log("DEBUG fid: idx = ", idx);
+    let abfrom = null;   /* Fill with addressbook from when found */
+    let recpts = this.getRecipients();  /* Cache recipients */
 
-    if (idx != -1) {
-        let r = this.ro.rules[idx];
-        let key = r.account;
-        let useAttr = cmb.selectedItem.hasAttribute('identitykey');
-        let from = useAttr ? cmb.selectedItem.getAttribute('identitykey') : cmb.value;
+    if (pref_addrbook) {
+	/* When enabled, first check the adress book */
+	abfrom = this.ro.matchAddrbook(recpts);
 	if (this.console) {
-	    this.console.log("DEBUG fid: key = ", key);
-	    this.console.log("DEBUG fid: from = ", from);
+	    this.console.log("DEBUG fid: addrbook lookup returned = ", abfrom);
 	}
-        let fixError = true;
+    } /* if (prefs.getBoolPref('extensions.fid.addressbook')) */
 
-        if (key != from && key) {
-            if (!r.noWarning && willSend) {
-                let msg = this.ro.bundle.formatStringFromName(
-                    'ruleWarning',
-                    [this.ro.mgr.getIdentity(from).identityName,
-                    this.ro.mgr.getIdentity(key).identityName], 2);
+    if (abfrom != null) {
+	if (this.console) {
+	    this.console.log("DEBUG fid: Use addrbook lookup to update sender");
+	    try {
+		let sendername = null;
+		if (pref_sendername.length > 0) /* Sender name from configuration */
+		    sendername = pref_sendername;
+		this.raor.setSender(
+		    MailServices.headerParser.makeMailboxObject(
+			sendername, abfrom).toString() );
+	    } catch(ex) {Components.utils.reportError(ex);}
+	}
+    } else {
+	/* Try lookup in custom rules */
+	let cmb = document.getElementById('msgIdentity');
+	/* First check the stored rules */
+	let idx = this.ro.match(recpts);
 
-                let prompts = Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
-                    getService(Components.interfaces.nsIPromptService);
+	/* Debug Console Output */
+	if (this.console)
+	    this.console.log("DEBUG fid: idx = ", idx);
 
-                var check = {value: false};
+	if (idx != -1) {
+	    /* We got a rules match! */
+            let r = this.ro.rules[idx];
+            let key = r.account;
+            let useAttr = cmb.selectedItem.hasAttribute('identitykey');
+            let from = useAttr ? cmb.selectedItem.getAttribute('identitykey') : cmb.value;
+	    if (this.console) {
+		this.console.log("DEBUG fid: key = ", key);
+		this.console.log("DEBUG fid: from = ", from);
+	    }
+            let fixError = true;
 
-                let ask = prompts.confirmEx(window,
-                    this.ro.bundle.GetStringFromName('ruleWarnCaption'),
-                    msg,
-                    prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+            if (key != from && key) {
+		if (!r.noWarning && willSend) {
+                    let msg = this.ro.bundle.formatStringFromName(
+			'ruleWarning',
+			[this.ro.mgr.getIdentity(from).identityName,
+			 this.ro.mgr.getIdentity(key).identityName], 2);
+
+                    let prompts = Components.classes['@mozilla.org/embedcomp/prompt-service;1'].
+			getService(Components.interfaces.nsIPromptService);
+
+                    var check = {value: false};
+
+                    let ask = prompts.confirmEx(window,
+			this.ro.bundle.GetStringFromName('ruleWarnCaption'),
+			msg,
+			prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_CANCEL +
                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_IS_STRING +
                         prompts.BUTTON_POS_1_DEFAULT,
-                    this.ro.bundle.GetStringFromName('ruleWarnSend'),
-                    '',
-                    this.ro.bundle.GetStringFromName('ruleWarnCorrect'),
-                    null,
-                    check);
+			this.ro.bundle.GetStringFromName('ruleWarnSend'),
+                        '',
+                        this.ro.bundle.GetStringFromName('ruleWarnCorrect'),
+                        null,
+                        check);
 
-                if (ask === 1)
-                    return false;
+                    if (ask === 1)
+			return false;
 
-                fixError = ask === 2;
-            }
-
-            if (fixError) {
-                if (useAttr) {
-                    let identity = this.ro.mgr.getIdentity(key);
-                    cmb.value = MailServices.headerParser.makeMailboxObject(
-                        identity.fullName, identity.email).toString();
-		    if (this.console)
-			this.console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
-                } else {
-                    cmb.value = key;
-		    if (this.console)
-			this.console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
+                    fixError = ask === 2;
 		}
 
-                LoadIdentity(false); // thanks to Bruce Jolliffe
-            }
-        }
-    }
+		if (fixError) {
+                    if (useAttr) {
+			let identity = this.ro.mgr.getIdentity(key);
+			cmb.value = MailServices.headerParser.makeMailboxObject(
+                            identity.fullName, identity.email).toString();
+			if (this.console)
+			    this.console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
+                    } else {
+			cmb.value = key;
+			if (this.console)
+			    this.console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
+		    }
 
+                    LoadIdentity(false); // thanks to Bruce Jolliffe
+		}
+            }
+	} /* if (idx != -1) { */
+    } /* if (abfrom != null) */
     return true;
 },
 
