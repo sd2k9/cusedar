@@ -122,15 +122,15 @@ checkRules: function(willSend) {
     if (abfrom != null) {
 	if (this.console) {
 	    this.console.log("DEBUG fid: Use addrbook lookup to update sender");
-	    try {
-		let sendername = null;
-		if (pref_sendername.length > 0) /* Sender name from configuration */
-		    sendername = pref_sendername;
-		this.raor.setSender(
-		    MailServices.headerParser.makeMailboxObject(
-			sendername, abfrom).toString() );
-	    } catch(ex) {Components.utils.reportError(ex);}
 	}
+	try {
+	    let sendername = null;
+	    if (pref_sendername.length > 0) /* Sender name from configuration */
+		sendername = pref_sendername;
+	    this.raor.setSender(
+		MailServices.headerParser.makeMailboxObject(
+		    sendername, abfrom).toString() );
+	} catch(ex) {Components.utils.reportError(ex);}
     } else {
 	/* Try lookup in custom rules */
 	let cmb = document.getElementById('msgIdentity');
