@@ -1,12 +1,32 @@
 Thunderbird Extension Custom Sender Address and Reply
 =====================================================
 
-This is a stub and needs to be written.
 
 Overview
 --------
+The Thunderbird extension _Custom Sender Address and Reply_
+(_Cusedar_ for short) is a merge of
+Flexible Identity
+and
+Reply as Original Recipient
+with new features added.
+
+Cusedar allows the user to define custom "From"-addresses based
+on the recipient mail address. Either by defining rules in the extension
+options, or in the address book.  
+In addition, when replying to a mail the extension can check the "To"-address
+of the received mail and with a regular expression match this
+address is used as the new "From"-address. Thus ensuring you always reply with
+the correct identiy.
+
+Features
+- Custom "From"-address based on rules
+- Custom "From"-address based on address book lookup ("Custom 3" entry)
+- For replies use "To"-address as "From"-address, based on regular expression match
 
 
+Local installation
+------------------
 For a local installation create a file named  
 your_thunderbird_profile/extensions/cusedar@sethdepot.org  
 with it's only content being the path where you downloaded or cloned
@@ -37,3 +57,23 @@ licenses
 All changes afterwards are dual-licensed under both
 GNU General Public License version 3.0 and
 Mozilla Public License version 2.0 .
+
+Author
+------
+- Flexible Identity  
+  Paul Kolomiets
+- Reply as Original Recipient  
+  Qiqitori
+- Custom Sender Address and Reply  
+  Copyright (C) 2017-2018 Robert Lange (sd2k9@sethdepot.org)
+
+If you have any questions, just write me or create an issue (see below).
+
+
+
+Web Links
+---------
+- Repository  
+  https://github.com/sd2k9/cusedar
+- Issue tracker  
+  https://github.com/sd2k9/cusedar/issues
