@@ -1,3 +1,27 @@
+/*
+  Parts of this software stem from Flexible Identity.
+  These are subject to the terms of the GNU General Public License
+  version 3.
+        This program is free software: you can redistribute it and/or modify
+        it under the terms of the GNU General Public License version 3
+        as published by the Free Software Foundation.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+
+        You should have received a copy of the GNU General Public License
+        along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+  All changes introduced afterwards are dual-licensed under both
+  GNU General Public License version 3.0 and
+  Mozilla Public License version 2.0 .
+
+
+  See README.md for more details.
+*/
+
 var fidIdentity = {
 
 onLoad: function() {

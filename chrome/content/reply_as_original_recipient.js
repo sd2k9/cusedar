@@ -1,6 +1,14 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
+/* Parts of this software stem from Reply as Original Recipient.
+ *  These are subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * All changes introduced afterwards are dual-licensed under both
+ * GNU General Public License version 3.0 and
+ * Mozilla Public License version 2.0 .
+ *
+ * See README.md for more details.
+ */
 
 /* Adapted from the Reply to All as Cc extension (v1.4) */
 
