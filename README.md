@@ -1,10 +1,19 @@
-Thunderbird Extension Flexible Identity
-=======================================
+Thunderbird Extension Custom Sender Address and Reply
+=====================================================
 
 This is a stub and needs to be written.
 
 Overview
 --------
+
+
+For a local installation create a file named  
+your_thunderbird_profile/extensions/cusedar@sethdepot.org  
+with it's only content being the path where you downloaded or cloned
+this extension.  
+Please take care that currently the settings (and other stuff)
+still share their names with Flexible Identity, so expect trouble when you
+have both extensions installed.
 
 
 License and Origin
