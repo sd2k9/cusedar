@@ -149,7 +149,14 @@ checkRules: function(willSend) {
 	}
 	try {
 	    let sendername = null;
-	    if (pref_sendername.length > 0) /* Sender name from configuration */
+	    /* If the addressbook match contains "<" and ">" then we assume it's
+	       an address with sender name included, e.g.: Sender <mail@domain.org> */
+	    if ( (abfrom.indexOf("<") != -1) && (abfrom.indexOf(">") != -1) &&
+	         (abfrom.indexOf("<") < abfrom.indexOf(">")) ) {
+		if (this.console) {
+		    this.console.log("DEBUG fid: Do not set sender, assuming it's part of Custom3");
+		}
+	    } else if (pref_sendername.length > 0) /* Sender name from configuration */
 		sendername = pref_sendername;
 	    this.raor.setSender(
 		MailServices.headerParser.makeMailboxObject(
