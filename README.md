@@ -22,7 +22,7 @@ the correct identiy.
 Features
 - Custom "From"-address based on rules
 - Custom "From"-address based on address book lookup ("Custom 3" entry)  
-  Supported Formats: "mail@domain.ext", "sendername <mail@domain.ext>"
+  Supported Formats: "mail@domain.ext", "sendername \<mail@domain.ext\>"
 - For replies use "To"-address as "From"-address, based on regular expression match
 
 
