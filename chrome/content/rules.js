@@ -97,25 +97,28 @@ emptyRule: function() {
 splitScope: function() {
     this.filters = [];
 
-    for each (let r in this.rules) {
+    this.rules.forEach(function (r) {
         let sp = r.useRegex ? r.scope.split(/[\r\n]+/) : r.scope.split(/[,;\s]+/);
         let res = [];
 
-        for each(let s in sp) {
-            if (r.useRegex) {
-                try {
-                    res.push(new RegExp(s));
-                } catch (ex) {}
-            } else
-               res.push(s.toLocaleLowerCase());
+        if (sp != null && sp.length > 0) {
+            sp.forEach(function (s) {
+                if (r.useRegex) {
+                    try {
+                        res.push(new RegExp(s));
+                    } catch (ex) {}
+                } else
+                   res.push(s.toLocaleLowerCase());
+            });
 
+            this.filters.push(res);
         }
-
-        this.filters.push(res);
-    }
+    }, this);
 },
 
 matchItem: function(aValue) {
+    let result = -1;
+
     for (let n = 0, cnt = this.filters.length; n < cnt; ++n) {
         let r = this.rules[n];
 
@@ -134,17 +137,30 @@ matchItem: function(aValue) {
         let s = this.filters[n];
 
         if (r.useRegex) {
-            for each (let f in s)
-                if (!this.stEmpty(f) && f instanceof RegExp && aValue.email.match(f))
-                    return n;
+            s.some(function (f) {
+                if (!this.stEmpty(f) && f instanceof RegExp && aValue.email.match(f)) {
+                    result = n;
+                    return true;
+                }
+
+                return false;
+            }, this);
         } else {
-            for each (let f in s)
-                if (!this.stEmpty(f) && aValue.email.indexOf(f) != -1)
-                    return n;
+            s.some(function (f) {
+                if (!this.stEmpty(f) && aValue.email.indexOf(f) != -1) {
+                    result = n;
+                    return true;
+                }
+
+                return false;
+            }, this);
         }
+
+        if (result !== -1)
+            return result;
     }
 
-    return -1;
+    return result;
 },
 
 stEmpty: function(aValue) {
@@ -153,14 +169,18 @@ stEmpty: function(aValue) {
 
 match: function(aValue) {
     /* Check stored rules, return index into rules array */
-    for each (let cur in aValue) {
+    let result = -1;
+
+    aValue.some(function (cur) {
         let idx = this.matchItem(cur);
 
-        if (idx != -1)
-            return idx;
-    }
+        if (idx !== -1)
+            result = idx;
 
-    return -1;
+        return idx !== -1;
+    }, this);
+
+    return result;
 },
 
 
@@ -207,7 +227,7 @@ matchAddrbook: function(aValue) {
 },
 
 fixRules: function() {
-    for each (let r in this.rules) {
+    this.rules.forEach(function (r) {
         let id = null;
 
         try {
@@ -216,7 +236,7 @@ fixRules: function() {
 
         if (!id || !id.email)
             r.account = '';
-    }
+    }, this);
 },
 
 load: function() {

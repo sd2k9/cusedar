@@ -43,13 +43,15 @@ fillIds: function() {
     let menulist = document.getElementById('id-identity');
     accounts = accounts.filter(function(a) {return !!a.incomingServer;});
 
-    for each (let account in accounts) {
+    accounts.forEach(function(account) {
         let identites = this.queryArray(account.identities, Components.interfaces.nsIMsgIdentity);
 
-        for each (let identity in identites)
+        identites.forEach(function(identity) {
             if (identity.email)
                 menulist.appendItem(identity.identityName, identity.key, '');
-    }
+        });
+    }, this);
+
 
     menulist.selectedIndex = 0;
 },
@@ -65,8 +67,7 @@ queryArray: function(supportsArray, iid) {
 },
 
 fillRules: function() {
-    for each (let r in this.ro.rules)
-        this.appendRule(r);
+    this.ro.rules.forEach(function(r) { this.appendRule(r); }, this);
 
     this.lb.selectedIndex = 0;
     this.updateButtons();
