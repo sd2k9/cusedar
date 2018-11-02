@@ -66,7 +66,7 @@ Author
 - Reply as Original Recipient  
   Qiqitori
 - Custom Sender Address and Reply  
-  Copyright (C) 2017-2018 Robert Lange (sd2k9@sethdepot.org)
+  Copyright (C) 2017-2018 Robert Lange (https://sethdepot.org/site/RoLa.html)
 
 If you have any questions, just write me or create an issue (see below).
 
