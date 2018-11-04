@@ -86,7 +86,7 @@ checkAndSend: function(aCallback) {
             if (!this.checkRules(true))
 		return;
 	} else if (this.console) { /* Debug output when requested */
-	    this.console.log("DEBUG fid: No action, because raor did ran (1)");
+	    this.console.log("DEBUG fid: No action, because cusedar/raor did ran (1)");
 	}
     } catch(ex) {Components.utils.reportError(ex);}
 
@@ -294,7 +294,7 @@ genericSend: function(aType, aCallback) {
             if (aType == nsIMsgCompDeliverMode.SaveAsDraft && !this.checkDraft())
 		return;
 	} else if (this.console) { /* Debug output when requested */
-	    this.console.log("DEBUG fid: No action, because raor did ran (2)");
+	    this.console.log("DEBUG fid: No action, because cusedar/raor did ran (2)");
 	}
     } catch(ex) {Components.utils.reportError(ex);}
 
@@ -309,7 +309,7 @@ checkDraft: function() {
 	return prefs.getBoolPref('extensions.fid.check.draft') ?
             this.checkRules(false) : true;
     } else if (this.console) { /* Debug output when requested */
-	this.console.log("DEBUG fid: No action, because raor did ran (3)");
+	this.console.log("DEBUG fid: No action, because cusedar/raor did ran (3)");
 	return true;
     }
 },

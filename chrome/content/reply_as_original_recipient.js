@@ -55,7 +55,7 @@ var ReplyAsOriginalRecipient = {
 	 raor already replaced the From field (when success == true) */
     this.success = false;  /* Initially set to false */
     // Extra Debug (disabled)
-    // (Components.utils.import("resource://gre/modules/Console.jsm", {})).console.log("DEBUG raor: success = ", this.success);
+    // (Components.utils.import("resource://gre/modules/Console.jsm", {})).console.log("DEBUG cusedar: success = ", this.success);
 
     if (!this.isReply())
       return;
@@ -88,7 +88,7 @@ var ReplyAsOriginalRecipient = {
 
     if (!pref_enable) {
 	if (pref_debug)
-	    console.log("DEBUG raor: Reply handling disabled by configuration, doing nothing");
+	    console.log("DEBUG cusedar: Reply handling disabled by configuration, doing nothing");
 	return;
     }
 
@@ -97,14 +97,14 @@ var ReplyAsOriginalRecipient = {
     let originalRecipient = originalHeader.mime2DecodedRecipients;  /* Fetch "To" header */
     /* Debug Output */
     if (pref_debug)
-	console.log("DEBUG raor: originalHeader.mime2DecodedRecipients = ", originalRecipient);
+	console.log("DEBUG cusedar: originalHeader.mime2DecodedRecipients = ", originalRecipient);
     if (pref_regexp.length == 0) {
 	if (pref_debug)
-	    console.log("DEBUG raor: Using default matching with +");
+	    console.log("DEBUG cusedar: Using default matching with +");
 	/* Default: Check for "+" in original recipient, does not allow multiple addresses (",") */
 	if (originalRecipient.indexOf(",") != -1 || originalRecipient.indexOf("+") == -1) {
 	    if (pref_debug)
-		console.log("DEBUG raor: No default match found - bailing out\n");
+		console.log("DEBUG cusedar: No default match found - bailing out\n");
 	    return;
 	}
     } else {  /* if (pref_regexp.length == 0) */
@@ -112,26 +112,26 @@ var ReplyAsOriginalRecipient = {
 	let re_recipient = new RegExp(pref_regexp, "i");
 	let match_recv = null;  /* String we're matching with */
 	if (pref_debug)
-	    console.log("DEBUG raor: Using regex for case insensitive match = ", pref_regexp);
+	    console.log("DEBUG cusedar: Using regex for case insensitive match = ", pref_regexp);
 	if (originalRecipient.search(re_recipient) >= 0) {  /* First try recipient */
 	    if (pref_debug)
-		console.log("DEBUG raor: regex found in recipient\n");
+		console.log("DEBUG cusedar: regex found in recipient\n");
 	    match_recv = originalRecipient;
 	} else if (pref_cc) {
 	    let originalCcList = originalHeader.ccList;  /* Fetch CC header */
 	    if (pref_debug) {
-		console.log("DEBUG raor: Check also CC list (enabled in configuration)\n");
-		console.log("DEBUG raor: originalHeader.ccList = ", originalCcList);
+		console.log("DEBUG cusedar: Check also CC list (enabled in configuration)\n");
+		console.log("DEBUG cusedar: originalHeader.ccList = ", originalCcList);
 	    }
 	    if (originalCcList.search(re_recipient) >= 0) {  /* Secondary try CC list */
 		if (pref_debug)
-		    console.log("DEBUG raor: regex found in CC list\n");
+		    console.log("DEBUG cusedar: regex found in CC list\n");
 		match_recv = originalCcList;
 	    }
 	}
 	if (match_recv == null) {   /* No match found, so we're done here */
 	    if (pref_debug)
-		console.log("DEBUG raor: regex NOT found in recipient or CC (when enabled) - bailing out\n");
+		console.log("DEBUG cusedar: regex NOT found in recipient or CC (when enabled) - bailing out\n");
 	    return;
 	}
 	/* Filter out first match, according to match string */
@@ -151,7 +151,7 @@ var ReplyAsOriginalRecipient = {
             sendername, re_result[0]).toString()
     }  /* if (pref_regexp.length == 0) */
     if (pref_debug)
-	console.log("DEBUG raor: Success RE Recipient Isolated = ", originalRecipient);
+	console.log("DEBUG cusedar: Success RE Recipient Isolated = ", originalRecipient);
 
     this.setSender(originalRecipient);   /* Now update the sender */
     /* This will be checked by fid to disable flexible identity replacement when
