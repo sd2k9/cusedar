@@ -51,7 +51,7 @@ var ReplyAsOriginalRecipient = {
   },
 
   init: function() {
-    /* This will be checked by fid to disable flexible identity replacement when
+    /* This will be checked by cusedar to disable flexible identity replacement when
 	 raor already replaced the From field (when success == true) */
     this.success = false;  /* Initially set to false */
     // Extra Debug (disabled)
@@ -70,11 +70,11 @@ var ReplyAsOriginalRecipient = {
 	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
         getService(Components.interfaces.nsIPrefBranch);
 
-	pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
-        pref_enable = prefs.getBoolPref('extensions.fid.reply.enable');
-	pref_cc     = prefs.getBoolPref('extensions.fid.reply.checkcc');
-	pref_regexp = prefs.getCharPref('extensions.fid.reply.regexp');
-	pref_sendername = prefs.getCharPref('extensions.fid.reply.sendername');
+	pref_debug  = prefs.getBoolPref('extensions.cusedar.debug.console');
+        pref_enable = prefs.getBoolPref('extensions.cusedar.reply.enable');
+	pref_cc     = prefs.getBoolPref('extensions.cusedar.reply.checkcc');
+	pref_regexp = prefs.getCharPref('extensions.cusedar.reply.regexp');
+	pref_sendername = prefs.getCharPref('extensions.cusedar.reply.sendername');
     } catch (ex) {Components.utils.reportError(ex);}
 
     /* Debug Console Output */
@@ -154,7 +154,7 @@ var ReplyAsOriginalRecipient = {
 	console.log("DEBUG cusedar: Success RE Recipient Isolated = ", originalRecipient);
 
     this.setSender(originalRecipient);   /* Now update the sender */
-    /* This will be checked by fid to disable flexible identity replacement when
+    /* This will be checked by cusedar to disable flexible identity replacement when
 	 raor already replaced the From field (when success == true) */
     this.success = true;  /* Now change it to true, because we did run */
 

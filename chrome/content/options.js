@@ -22,11 +22,11 @@
   See README.md for more details.
 */
 
-var fidOptions = {
+var cusedarOptions = {
 
 onLoad: function() {
     try {
-        this.ro = new fidRules();
+        this.ro = new cusedarRules();
         this.lb = document.getElementById('id-rules');
         this.idx = -1;
         this.fillIds();
@@ -171,8 +171,8 @@ doAccept: function() {
         while(wm.hasMoreElements()) {
             let win = wm.getNext();
 
-            if ('fidIdentity' in win)
-                win.fidIdentity.ro.load();
+            if ('cusedarIdentity' in win)
+                win.cusedarIdentity.ro.load();
         }
     } catch(ex) {Components.utils.reportError(ex);}
 
@@ -232,16 +232,16 @@ fillPrefs: function() {
     let prefs = Components.classes['@mozilla.org/preferences-service;1'].
        getService(Components.interfaces.nsIPrefBranch);
 
-    document.getElementById('id-checkcc').checked        = prefs.getBoolPref('extensions.fid.check.cc');
-    document.getElementById('id-checkdraft').checked     = prefs.getBoolPref('extensions.fid.check.draft');
-    document.getElementById('id-showregexp').checked     = prefs.getBoolPref('extensions.fid.show.regexp');
-    document.getElementById('id-addr').checked           = prefs.getBoolPref('extensions.fid.addressbook');
-    document.getElementById('id-debug-console').checked  = prefs.getBoolPref('extensions.fid.debug.console');
+    document.getElementById('id-checkcc').checked        = prefs.getBoolPref('extensions.cusedar.check.cc');
+    document.getElementById('id-checkdraft').checked     = prefs.getBoolPref('extensions.cusedar.check.draft');
+    document.getElementById('id-showregexp').checked     = prefs.getBoolPref('extensions.cusedar.show.regexp');
+    document.getElementById('id-addr').checked           = prefs.getBoolPref('extensions.cusedar.addressbook');
+    document.getElementById('id-debug-console').checked  = prefs.getBoolPref('extensions.cusedar.debug.console');
 
-    document.getElementById('id-reply-enable').checked   = prefs.getBoolPref('extensions.fid.reply.enable');
-    document.getElementById('id-reply-checkcc').checked  = prefs.getBoolPref('extensions.fid.reply.checkcc');
-    document.getElementById('id-reply-regexp').value     = prefs.getCharPref('extensions.fid.reply.regexp');
-    document.getElementById('id-reply-sendername').value = prefs.getCharPref('extensions.fid.reply.sendername');
+    document.getElementById('id-reply-enable').checked   = prefs.getBoolPref('extensions.cusedar.reply.enable');
+    document.getElementById('id-reply-checkcc').checked  = prefs.getBoolPref('extensions.cusedar.reply.checkcc');
+    document.getElementById('id-reply-regexp').value     = prefs.getCharPref('extensions.cusedar.reply.regexp');
+    document.getElementById('id-reply-sendername').value = prefs.getCharPref('extensions.cusedar.reply.sendername');
 
     this.showOptFields();
 },
@@ -250,16 +250,16 @@ savePrefs: function() {
     let prefs = Components.classes['@mozilla.org/preferences-service;1'].
        getService(Components.interfaces.nsIPrefBranch);
 
-    prefs.setBoolPref('extensions.fid.check.cc',      document.getElementById('id-checkcc').checked);
-    prefs.setBoolPref('extensions.fid.check.draft',   document.getElementById('id-checkdraft').checked);
-    prefs.setBoolPref('extensions.fid.show.regexp',   document.getElementById('id-showregexp').checked);
-    prefs.setBoolPref('extensions.fid.addressbook',   document.getElementById('id-addr').checked);
-    prefs.setBoolPref('extensions.fid.debug.console', document.getElementById('id-debug-console').checked);
+    prefs.setBoolPref('extensions.cusedar.check.cc',      document.getElementById('id-checkcc').checked);
+    prefs.setBoolPref('extensions.cusedar.check.draft',   document.getElementById('id-checkdraft').checked);
+    prefs.setBoolPref('extensions.cusedar.show.regexp',   document.getElementById('id-showregexp').checked);
+    prefs.setBoolPref('extensions.cusedar.addressbook',   document.getElementById('id-addr').checked);
+    prefs.setBoolPref('extensions.cusedar.debug.console', document.getElementById('id-debug-console').checked);
 
-    prefs.setBoolPref('extensions.fid.reply.enable',  document.getElementById('id-reply-enable').checked);
-    prefs.setBoolPref('extensions.fid.reply.checkcc', document.getElementById('id-reply-checkcc').checked);
-    prefs.setCharPref('extensions.fid.reply.regexp',  document.getElementById('id-reply-regexp').value.trim());
-    prefs.setCharPref('extensions.fid.reply.sendername', document.getElementById('id-reply-sendername').value.trim());
+    prefs.setBoolPref('extensions.cusedar.reply.enable',  document.getElementById('id-reply-enable').checked);
+    prefs.setBoolPref('extensions.cusedar.reply.checkcc', document.getElementById('id-reply-checkcc').checked);
+    prefs.setCharPref('extensions.cusedar.reply.regexp',  document.getElementById('id-reply-regexp').value.trim());
+    prefs.setCharPref('extensions.cusedar.reply.sendername', document.getElementById('id-reply-sendername').value.trim());
 },
 
 openURL: function(aURL) {
@@ -277,6 +277,6 @@ showOptFields: function() {
     document.getElementById('id-reply-options').hidden = hide_reply_opts;
 }
 
-} // fidOptions
+} // cusedarOptions
 
-window.addEventListener('load', function() {fidOptions.onLoad();}, false);
+window.addEventListener('load', function() {cusedarOptions.onLoad();}, false);

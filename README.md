@@ -5,10 +5,10 @@ Thunderbird Extension Custom Sender Address and Reply
 Overview
 --------
 The Thunderbird extension _Custom Sender Address and Reply_
-(_Cusedar_ for short) is a merge of
-Flexible Identity
-and
-Reply as Original Recipient
+(_Cusedar_ for short) is a merge of  
+Flexible Identity  
+and  
+Reply as Original Recipient  
 with new features added.
 
 Cusedar allows the user to define custom "From"-addresses based

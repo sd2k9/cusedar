@@ -28,20 +28,20 @@
 //-->
 
 <!DOCTYPE window [
-  <!ENTITY % dtd1 SYSTEM "chrome://fid/locale/branding.dtd"> %dtd1;
-  <!ENTITY % dtd2 SYSTEM "chrome://fid/locale/overlay.dtd"> %dtd2;
+  <!ENTITY % dtd1 SYSTEM "chrome://cusedar/locale/branding.dtd"> %dtd1;
+  <!ENTITY % dtd2 SYSTEM "chrome://cusedar/locale/overlay.dtd"> %dtd2;
 ]>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<script type="application/javascript" src="chrome://fid/content/rules.js"/>
-<script type="application/javascript" src="chrome://fid/content/identity.js"/>
-<script type="application/javascript" src="chrome://fid/content/reply_as_original_recipient.js" />
+<script type="application/javascript" src="chrome://cusedar/content/rules.js"/>
+<script type="application/javascript" src="chrome://cusedar/content/identity.js"/>
+<script type="application/javascript" src="chrome://cusedar/content/reply_as_original_recipient.js" />
 
 <menupopup id="optionsMenuPopup">
     <menuseparator/>
     <menuitem label="&overlay.menuitem;" accesskey="&overlay.accesskey;"
-        oncommand="fidIdentity.showOptions();"/>
+        oncommand="cusedarIdentity.showOptions();"/>
 </menupopup>
 
 </overlay>

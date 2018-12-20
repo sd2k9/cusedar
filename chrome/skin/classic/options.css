@@ -3,19 +3,19 @@
 }
 
 #id-add {
-    list-style-image: url('chrome://fid/skin/plus-small.png');
+    list-style-image: url('chrome://cusedar/skin/plus-small.png');
 }
 
 #id-remove {
-    list-style-image: url('chrome://fid/skin/minus-small.png');
+    list-style-image: url('chrome://cusedar/skin/minus-small.png');
 }
 
 #id-up {
-    list-style-image: url('chrome://fid/skin/up-small.png');
+    list-style-image: url('chrome://cusedar/skin/up-small.png');
 }
 
 #id-down {
-    list-style-image: url('chrome://fid/skin/down-small.png');
+    list-style-image: url('chrome://cusedar/skin/down-small.png');
 }
 
 #id-window {
