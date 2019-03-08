@@ -207,7 +207,7 @@ matchAddrbook: function(aValue) {
 	 if (collection) {
 	     // Then get the first card which matches this email address
 	     /* Field names: https://dxr.mozilla.org/comm-central/source/mailnews/addrbook/public/nsIAbCard.idl */
-	     for each (let cur in aValue) {
+	     aValue.forEach(function (cur) {
 		 console.log("DEBUG rules: addrbook checking for ", cur.email);
 		 let card = collection.cardForEmailAddress(cur.email);
 		 if (card) {
@@ -216,9 +216,9 @@ matchAddrbook: function(aValue) {
 			 console.log("DEBUG rules: addrbook card = ", card);
 			 console.log("DEBUG rules: addrbook Custom 3 = ", abfrom);
 		     }
-		     break; /* Exit inner loop, out loop will be exited with abfrom != null */
+		     return; /* Exit forEach function, out loop will be exited with abfrom != null */
 		 }
-	     }
+	     })
 	 }
      }
  }
