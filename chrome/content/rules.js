@@ -78,7 +78,7 @@ path: function() {
         getService(Components.interfaces.nsIProperties).
         get("ProfD", Components.interfaces.nsIFile);
 
-    file.append('flexible-dentity.json');
+    file.append('extension-cusedar.json');
     return file;
 },
 
