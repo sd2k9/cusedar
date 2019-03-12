@@ -1,9 +1,0 @@
-pref("extensions.cusedar.welcome.version", 0);
-pref("extensions.cusedar.check.cc", true);
-pref("extensions.cusedar.check.draft", false);
-pref("extensions.cusedar.show.regexp", false);
-pref("extensions.cusedar.debug.console", false);
-pref("extensions.cusedar.reply.enable", false);
-pref("extensions.cusedar.reply.checkcc", false);
-pref("extensions.cusedar.reply.regexp", "");
-pref("extensions.cusedar.reply.sendername", "");
