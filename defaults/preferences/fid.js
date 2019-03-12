@@ -1,9 +1,0 @@
-pref("extensions.fid.welcome.version", 0);
-pref("extensions.fid.check.cc", true);
-pref("extensions.fid.check.draft", false);
-pref("extensions.fid.show.regexp", false);
-pref("extensions.fid.debug.console", false);
-pref("extensions.fid.reply.enable", false);
-pref("extensions.fid.reply.checkcc", false);
-pref("extensions.fid.reply.regexp", "");
-pref("extensions.fid.reply.sendername", "");

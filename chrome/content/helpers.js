@@ -21,14 +21,14 @@
   See README.md for more details.
 */
 
-var fidHelpers = {
+var cusedarHelpers = {
 
 onLoad: function() {
     try {
         let prefs = Components.classes['@mozilla.org/preferences-service;1'].
             getService(Components.interfaces.nsIPrefBranch);
 
-        this.pref = 'extensions.fid.welcome.version';
+        this.pref = 'extensions.cusedar.welcome.version';
         this.version = 1;
 
         if (this.willShowNotify(prefs)) {
@@ -55,28 +55,28 @@ showNotify: function() {
 
     let bundle = Components.classes['@mozilla.org/intl/stringbundle;1'].
         getService(Components.interfaces.nsIStringBundleService).
-        createBundle('chrome://fid/locale/rules.properties');
+        createBundle('chrome://cusedar/locale/rules.properties');
 
-    let notifyText = bundle.GetStringFromName('fidWelcome');
+    let notifyText = bundle.GetStringFromName('cusedarWelcome');
 
     var buttons = [
         {
-            label: bundle.GetStringFromName('fidWelcomeAction'),
+            label: bundle.GetStringFromName('cusedarWelcomeAction'),
             accessKey: null,
             popup: null,
             callback: function(aNotificationBar, aButton) {
-                window.open('chrome://fid/content/options.xul', '', 'chrome,centerscreen,modal,resizable');
+                window.open('chrome://cusedar/content/options.xul', '', 'chrome,centerscreen,modal,resizable');
                 return true;
             }
         }
     ];
 
-    var box = notifyBox.appendNotification(notifyText, "about-fid",
+    var box = notifyBox.appendNotification(notifyText, "about-cusedar",
         null, notifyBox.PRIORITY_INFO_LOW, buttons);
 
     box.persistence = 4;
 },
 
-} // fidHelpers
+} // cusedarHelpers
 
-window.addEventListener('load', function() {fidHelpers.onLoad();}, false);
+window.addEventListener('load', function() {cusedarHelpers.onLoad();}, false);

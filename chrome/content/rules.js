@@ -21,19 +21,19 @@
   See README.md for more details.
 */
 
-function fidRules(debugEnable) {
+function cusedarRules(debugEnable) {
     /* debugEnable: True when debug output is requested */
     this.init(debugEnable);
 }
 
-fidRules.prototype = {
+cusedarRules.prototype = {
 
 init: function(debugEnable) {
     /* debugEnable: True when debug output is requested */
 
     this.bundle = Components.classes['@mozilla.org/intl/stringbundle;1'].
         getService(Components.interfaces.nsIStringBundleService).
-        createBundle('chrome://fid/locale/rules.properties');
+        createBundle('chrome://cusedar/locale/rules.properties');
     this.mgr = Components.classes['@mozilla.org/messenger/account-manager;1'].
         getService(Components.interfaces.nsIMsgAccountManager)
     if (debugEnable) {
@@ -78,7 +78,7 @@ path: function() {
         getService(Components.interfaces.nsIProperties).
         get("ProfD", Components.interfaces.nsIFile);
 
-    file.append('flexible-dentity.json');
+    file.append('extension-cusedar.json');
     return file;
 },
 
@@ -274,4 +274,4 @@ load: function() {
     this.splitScope();
 },
 
-} // fidRules.prototype
+} // cusedarRules.prototype

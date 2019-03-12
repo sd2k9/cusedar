@@ -1,4 +1,4 @@
-<!ENTITY options.title "&fidBrand; Options">
+<!ENTITY options.title "&cusedarBrand; Options">
 <!ENTITY options.rule "Name">
 <!ENTITY options.scope "Filters">
 <!ENTITY options.identity "Identity">
@@ -23,7 +23,7 @@
 <!ENTITY options.reply.tab "Reply Options">
 <!ENTITY options.reply.description "Reply as original recipient">
 <!ENTITY options.reply.enable "Enable">
-<!ENTITY options.reply.enable.description "When enabled and a match is found, flexible identity is disabled for this message">
+<!ENTITY options.reply.enable.description "When enabled and a match is found, cusedar is disabled for this message">
 <!ENTITY options.reply.regexp "Regexp">
 <!ENTITY options.reply.regexp.description1 "Recipient regular expression to trigger replacement">
 <!ENTITY options.reply.regexp.description2 "When empty, search for + as subadressing separator">

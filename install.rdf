@@ -4,7 +4,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
     <em:id>cusedar@sethdepot.org</em:id>
-    <em:version>1.0.5</em:version>
+    <em:version>1.0.0</em:version>
     <em:type>2</em:type>
 
     <em:targetApplication>
@@ -23,41 +23,41 @@
       </Description>
     </em:targetApplication>
 
-    <em:name>Flexible Identity</em:name>
-    <em:creator>Paul Kolomiets</em:creator>
-    <em:description>Selects an identity based on the recipients list when sending an email</em:description>
+    <em:name>Custom Sender Address and Reply</em:name>
+    <em:creator>sd2k9</em:creator>
+    <em:description>Select sender mail address based on the recipient and reply with the same address</em:description>
 
     <em:localized>
         <Description>
-            <em:name>Flexible Identity</em:name>
+            <em:name>Custom Sender Address and Reply</em:name>
             <em:locale>ru</em:locale>
             <em:description>Заполняет поле "от" при отправке письма на основе списка адресатов</em:description>
-            <em:creator>Павел Коломиец</em:creator>
+            <em:creator>sd2k9</em:creator>
         </Description>
     </em:localized>
 
     <em:localized>
         <Description>
-            <em:name>Identité Flexible</em:name>
+            <em:name>Custom Sender Address and Reply</em:name>
             <em:locale>fr-FR</em:locale>
             <em:description>Predefinessez ou sélectionnez manuellement les adresses courriel qui seront
 utilisées en fonction de vos destinataires.</em:description>
-            <em:creator>Paul Kolomiets</em:creator>
+            <em:creator>sd2k9</em:creator>
         </Description>
     </em:localized>
 
     <em:localized>
         <Description>
-            <em:name>Flexible Identität</em:name>
+            <em:name>Custom Sender Address and Reply</em:name>
             <em:locale>de-DE</em:locale>
             <em:description>Wählt beim Versenden einer E-Mail die Absenderadresse nach vordefinierten 
 Regeln aus.</em:description>
-            <em:creator>Paul Kolomiets</em:creator>
+            <em:creator>sd2k9</em:creator>
         </Description>
     </em:localized>
 
 
-    <em:optionsURL>chrome://fid/content/options.xul</em:optionsURL>
-    <em:iconURL>chrome://fid/skin/icon.png</em:iconURL>
+    <em:optionsURL>chrome://cusedar/content/options.xul</em:optionsURL>
+    <em:iconURL>chrome://cusedar/skin/icon.png</em:iconURL>
   </Description>
 </RDF>

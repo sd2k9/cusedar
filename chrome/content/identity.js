@@ -22,7 +22,7 @@
   See README.md for more details.
 */
 
-var fidIdentity = {
+var cusedarIdentity = {
 
 onLoad: function() {
 
@@ -32,48 +32,48 @@ onLoad: function() {
     try {
 	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
             getService(Components.interfaces.nsIPrefBranch);
-	pref_debug  = prefs.getBoolPref('extensions.fid.debug.console');
+	pref_debug  = prefs.getBoolPref('extensions.cusedar.debug.console');
 	if (pref_debug)  /* We want to print, so we fetch the console */
 	    this.console = (Components.utils.import("resource://gre/modules/Console.jsm", {})).console;
     } catch (ex) {Components.utils.reportError(ex);}
 
     try {
-        this.ro = new fidRules(pref_debug);  /* C'tor with debug console */
+        this.ro = new cusedarRules(pref_debug);  /* C'tor with debug console */
         this.embedIntoCompose();
 	this.raor = null;          /* Reference to raor */
 	if ('ReplyAsOriginalRecipient' in window)
 	    this.raor = window.ReplyAsOriginalRecipient;
 	else /* something went wrong, but just report it */
 	    if (this.console)
-		this.console.error("ERROR fid: Did not found ReplyAsOriginalRecipient in window object!");
+		this.console.error("ERROR cusedar: Did not found ReplyAsOriginalRecipient in window object!");
     } catch (ex) {Components.utils.reportError(ex);}
 },
 
 showOptions: function() {
     var res = {};
-    window.openDialog('chrome://fid/content/options.xul', '', 'chrome,centerscreen,modal,resizable', res);
+    window.openDialog('chrome://cusedar/content/options.xul', '', 'chrome,centerscreen,modal,resizable', res);
 },
 
 embedIntoCompose: function() {
-    var fid_SendMessageWithCheck = SendMessageWithCheck;
-    var fid_SendMessage = SendMessage;
-    var fid_SendMessageLater = SendMessageLater;
-    var fid_GenericSendMessage = GenericSendMessage;
+    var cusedar_SendMessageWithCheck = SendMessageWithCheck;
+    var cusedar_SendMessage = SendMessage;
+    var cusedar_SendMessageLater = SendMessageLater;
+    var cusedar_GenericSendMessage = GenericSendMessage;
 
     window.SendMessageLater = function () {
-        fidIdentity.checkAndSend(fid_SendMessageLater);
+        cusedarIdentity.checkAndSend(cusedar_SendMessageLater);
     };
 
     window.SendMessageWithCheck = function () {
-        fidIdentity.checkAndSend(fid_SendMessageWithCheck);
+        cusedarIdentity.checkAndSend(cusedar_SendMessageWithCheck);
     };
 
     window.SendMessage = function () {
-        fidIdentity.checkAndSend(fid_SendMessage);
+        cusedarIdentity.checkAndSend(cusedar_SendMessage);
     };
 
     window.GenericSendMessage = function(msgType) {
-        fidIdentity.genericSend(msgType, fid_GenericSendMessage);
+        cusedarIdentity.genericSend(msgType, cusedar_GenericSendMessage);
     }
 },
 
@@ -86,7 +86,7 @@ checkAndSend: function(aCallback) {
             if (!this.checkRules(true))
 		return;
 	} else if (this.console) { /* Debug output when requested */
-	    this.console.log("DEBUG fid: No action, because raor did ran (1)");
+	    this.console.log("DEBUG cusedar: No action, because cusedar/raor did ran (1)");
 	}
     } catch(ex) {Components.utils.reportError(ex);}
 
@@ -128,8 +128,8 @@ checkRules: function(willSend) {
     try {
 	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
             getService(Components.interfaces.nsIPrefBranch);
-	pref_sendername = prefs.getCharPref('extensions.fid.reply.sendername');
-	pref_addrbook = prefs.getBoolPref('extensions.fid.addressbook');
+	pref_sendername = prefs.getCharPref('extensions.cusedar.reply.sendername');
+	pref_addrbook = prefs.getBoolPref('extensions.cusedar.addressbook');
     } catch (ex) {Components.utils.reportError(ex);}
 
     let abfrom = null;   /* Fill with addressbook from when found */
@@ -139,13 +139,13 @@ checkRules: function(willSend) {
 	/* When enabled, first check the adress book */
 	abfrom = this.ro.matchAddrbook(recpts);
 	if (this.console) {
-	    this.console.log("DEBUG fid: addrbook lookup returned = ", abfrom);
+	    this.console.log("DEBUG cusedar: addrbook lookup returned = ", abfrom);
 	}
-    } /* if (prefs.getBoolPref('extensions.fid.addressbook')) */
+    } /* if (prefs.getBoolPref('extensions.cusedar.addressbook')) */
 
     if (abfrom != null) {
 	if (this.console) {
-	    this.console.log("DEBUG fid: Use addrbook lookup to update sender");
+	    this.console.log("DEBUG cusedar: Use addrbook lookup to update sender");
 	}
 	try {
 	    let sendername = null;
@@ -154,7 +154,7 @@ checkRules: function(willSend) {
 	    if ( (abfrom.indexOf("<") != -1) && (abfrom.indexOf(">") != -1) &&
 	         (abfrom.indexOf("<") < abfrom.indexOf(">")) ) {
 		if (this.console) {
-		    this.console.log("DEBUG fid: Do not set sender, assuming it's part of Custom3");
+		    this.console.log("DEBUG cusedar: Do not set sender, assuming it's part of Custom3");
 		}
 	    } else if (pref_sendername.length > 0) /* Sender name from configuration */
 		sendername = pref_sendername;
@@ -170,7 +170,7 @@ checkRules: function(willSend) {
 
 	/* Debug Console Output */
 	if (this.console)
-	    this.console.log("DEBUG fid: idx = ", idx);
+	    this.console.log("DEBUG cusedar: idx = ", idx);
 
 	if (idx != -1) {
 	    /* We got a rules match! */
@@ -179,8 +179,8 @@ checkRules: function(willSend) {
             let useAttr = cmb.selectedItem.hasAttribute('identitykey');
             let from = useAttr ? cmb.selectedItem.getAttribute('identitykey') : cmb.value;
 	    if (this.console) {
-		this.console.log("DEBUG fid: key = ", key);
-		this.console.log("DEBUG fid: from = ", from);
+		this.console.log("DEBUG cusedar: key = ", key);
+		this.console.log("DEBUG cusedar: from = ", from);
 	    }
             let fixError = true;
 
@@ -221,11 +221,11 @@ checkRules: function(willSend) {
 			cmb.value = MailServices.headerParser.makeMailboxObject(
                             identity.fullName, identity.email).toString();
 			if (this.console)
-			    this.console.log("DEBUG fid: Update cmb.value = makeMailboxObject = ", cmb.value);
+			    this.console.log("DEBUG cusedar: Update cmb.value = makeMailboxObject = ", cmb.value);
                     } else {
 			cmb.value = key;
 			if (this.console)
-			    this.console.log("DEBUG fid: Update cmb.value = key = ", cmb.value);
+			    this.console.log("DEBUG cusedar: Update cmb.value = key = ", cmb.value);
 		    }
 
                     LoadIdentity(false); // thanks to Bruce Jolliffe
@@ -240,7 +240,7 @@ checkCC: function() {
     let prefs = Components.classes['@mozilla.org/preferences-service;1'].
         getService(Components.interfaces.nsIPrefBranch);
 
-    if (!prefs.getBoolPref('extensions.fid.check.cc'))
+    if (!prefs.getBoolPref('extensions.cusedar.check.cc'))
         return true;
 
     let i = 0;
@@ -281,7 +281,7 @@ checkCC: function() {
         check);
 
     if (check.value) {
-        prefs.setBoolPref('extensions.fid.check.cc', false);
+        prefs.setBoolPref('extensions.cusedar.check.cc', false);
     }
 
    return ask !== 1;
@@ -294,7 +294,7 @@ genericSend: function(aType, aCallback) {
             if (aType == nsIMsgCompDeliverMode.SaveAsDraft && !this.checkDraft())
 		return;
 	} else if (this.console) { /* Debug output when requested */
-	    this.console.log("DEBUG fid: No action, because raor did ran (2)");
+	    this.console.log("DEBUG cusedar: No action, because cusedar/raor did ran (2)");
 	}
     } catch(ex) {Components.utils.reportError(ex);}
 
@@ -306,14 +306,14 @@ checkDraft: function() {
 	/* Only check for replacement when raor did not already replaced the sender */
 	let prefs = Components.classes['@mozilla.org/preferences-service;1'].
             getService(Components.interfaces.nsIPrefBranch);
-	return prefs.getBoolPref('extensions.fid.check.draft') ?
+	return prefs.getBoolPref('extensions.cusedar.check.draft') ?
             this.checkRules(false) : true;
     } else if (this.console) { /* Debug output when requested */
-	this.console.log("DEBUG fid: No action, because raor did ran (3)");
+	this.console.log("DEBUG cusedar: No action, because cusedar/raor did ran (3)");
 	return true;
     }
 },
 
-} // fidOptions
+} // cusedarOptions
 
-window.addEventListener('load', function() {fidIdentity.onLoad();}, false);
+window.addEventListener('load', function() {cusedarIdentity.onLoad();}, false);

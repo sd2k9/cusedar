@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://fid/skin/options.css" type="text/css"?>
+<?xml-stylesheet href="chrome://cusedar/skin/options.css" type="text/css"?>
 
 <!--
   Parts of this software stem from Flexible Identity.
@@ -27,8 +27,8 @@
 //-->
 
 <!DOCTYPE window [
-  <!ENTITY % dtd1 SYSTEM "chrome://fid/locale/branding.dtd"> %dtd1;
-  <!ENTITY % dtd2 SYSTEM "chrome://fid/locale/options.dtd"> %dtd2;
+  <!ENTITY % dtd1 SYSTEM "chrome://cusedar/locale/branding.dtd"> %dtd1;
+  <!ENTITY % dtd2 SYSTEM "chrome://cusedar/locale/options.dtd"> %dtd2;
   <!ENTITY % dtd3 SYSTEM "chrome://global/locale/dialogOverlay.dtd"> %dtd3;
 ]>
 
@@ -36,10 +36,10 @@
     title="&options.title;" id="id-window" persist="screenX screenY width height sizemode"
 >
 
-<script type="application/javascript" src="chrome://fid/content/rules.js"/>
-<script type="application/javascript" src="chrome://fid/content/options.js"/>
+<script type="application/javascript" src="chrome://cusedar/content/rules.js"/>
+<script type="application/javascript" src="chrome://cusedar/content/options.js"/>
 
-<tabbox id="id-tabs" flex="1" onselect="fidOptions.doTabs();">
+<tabbox id="id-tabs" flex="1" onselect="cusedarOptions.doTabs();">
     <tabs>
         <tab label="&options.rules;"/>
         <tab label="&options.other;"/>
@@ -58,7 +58,7 @@
                     <spacer class="button-gap"/>
 
                     <row flex="1">
-                        <listbox flex="1" id="id-rules" onselect="fidOptions.doSelect();"/>
+                        <listbox flex="1" id="id-rules" onselect="cusedarOptions.doSelect();"/>
 
                         <grid flex="1">
                             <columns>
@@ -68,7 +68,7 @@
                             <rows>
                                 <row align="center">
                                     <label value="&options.rule;"/>
-                                    <textbox id="id-rule" oninput="fidOptions.doUpdateCaption();"/>
+                                    <textbox id="id-rule" oninput="cusedarOptions.doUpdateCaption();"/>
                                 </row>
                                 <row flex="1">
                                     <label value="&options.scope;"/>
@@ -112,9 +112,9 @@
                 <groupbox>
                     <caption label="&options.other.advanced;"/>
                     <checkbox id="id-showregexp" label="&options.show.regexp;"
-                        oncommand="fidOptions.showOptFields();"/>
+                        oncommand="cusedarOptions.showOptFields();"/>
                     <label class="text-link indent" value="&options.show.regexp.description;"
-                        onclick="fidOptions.openURL('&options.show.regexp.link;');"/>
+                        onclick="cusedarOptions.openURL('&options.show.regexp.link;');"/>
                     <checkbox id="id-addr" label="&options.addressbook;"/>
                     <label class="indent" value="&options.addressbook.description;"/>
                     <checkbox id="id-debug-console" label="&options.debug.console;"/>
@@ -127,7 +127,7 @@
           <vbox flex="1" pack="start">
             <caption label="&options.reply.description;"/>
             <checkbox id="id-reply-enable" label="&options.reply.enable;"
-		      oncommand="fidOptions.showOptFields();"/>
+		      oncommand="cusedarOptions.showOptFields();"/>
             <label class="indent" value="&options.reply.enable.description;"/>
             <spacer class="button-gap"/>
             <grid id="id-reply-options" flex="1">
@@ -179,18 +179,18 @@
 <hbox>
     <hbox id="id-manage" align="start">
         <button id="id-add" class="tool" tooltiptext="&options.add;"
-            oncommand="fidOptions.doAdd();"/>
+            oncommand="cusedarOptions.doAdd();"/>
         <button id="id-remove" class="tool" tooltiptext="&options.remove;"
-            oncommand="fidOptions.doRemove();"/>
+            oncommand="cusedarOptions.doRemove();"/>
         <button id="id-up" class="tool" tooltiptext="&options.up;"
-            oncommand="fidOptions.doUp();"/>
+            oncommand="cusedarOptions.doUp();"/>
         <button id="id-down" class="tool" tooltiptext="&options.down;"
-            oncommand="fidOptions.doDown();"/>
+            oncommand="cusedarOptions.doDown();"/>
     </hbox>
 
     <spacer flex="1"/>
 
-    <button label="&okButton.label;" oncommand="fidOptions.doAccept();"/>
+    <button label="&okButton.label;" oncommand="cusedarOptions.doAccept();"/>
     <button label="&cancelButton.label;" oncommand="window.close();"/>
 </hbox>
 
