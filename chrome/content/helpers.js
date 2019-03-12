@@ -79,4 +79,4 @@ showNotify: function() {
 
 } // cusedarHelpers
 
-window.addEventListener('load', function() cusedarHelpers.onLoad();}, false);
+window.addEventListener('load', function() {cusedarHelpers.onLoad();}, false);
