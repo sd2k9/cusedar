@@ -26,15 +26,44 @@ Features
 - For replies use "To"-address as "From"-address, based on regular expression match
 
 
-Local installation
-------------------
+Installation
+------------
+
+### Installation methods
+There are various installation methods available, depending on your needs
+and preferences.  
+They are sorted in the following by their likelyhood, i.e. when you're unsure
+select the first one you feel comfortable with.
+
+Please be aware that Cusedar and Flexible Identity will compete about the
+same controls, because they are related.  
+So expect trouble when you have both extensions installed, which is
+strongly discouraged.
+
+### Install from Thunderbird Add-On Site
+Release of this extension on the Thunderbird add-on site is still
+under the way.  
+When that' done, this is the most convenient method to install
+this extension and keep it up-to-date.
+
+### Download prepared package
+You can fetch the prepared package from the following link:  
+_The path will soon appear here, please come back later._
+
+### Create own package
+1. Download or clone this extension
+1. Change into the directory
+1. (Optional when you made local changes)  
+   git clean -i -x
+1. zip -r -9 ../cusedar-1.0.0-tb.xpi . --exclude .git/\*
+
+### Local installation
 For a local installation create a file named  
 your_thunderbird_profile/extensions/cusedar@sethdepot.org  
 with it's only content being the path where you downloaded or cloned
-this extension.  
-Please take care that currently the settings (and other stuff)
-still share their names with Flexible Identity, so expect trouble when you
-have both extensions installed.
+this extension.
+
+This is the perfect starting point for your own modifications.
 
 
 Update from Flexible Identity
