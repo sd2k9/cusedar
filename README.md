@@ -37,6 +37,18 @@ still share their names with Flexible Identity, so expect trouble when you
 have both extensions installed.
 
 
+Update from Flexible Identity
+-----------------------------
+1. Close Thunderbird, when it's currently running
+1. Open file prefs.js in your Thunderbird profile (make a backup),  
+    replace text "extensions.fid." with "extensions.cusedar."
+1. Rename file "flexible-dentity.json" to "extension-cusedar.json"
+   in your Thunderbird profile
+1. Start Thunderbird
+1. Uninstall Flexible Identity
+1. Install Cusedar
+
+
 License and Origin
 ------------------
 The original source code files are licensed under different
