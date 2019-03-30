@@ -86,14 +86,14 @@ licenses
   - License text: [LICENSE-gpl-3.0.md](https://github.com/sd2k9/cusedar/blob/master/LICENSE-gpl-3.0.md)
   - Imported with commit ff698df03c231f80c3f505aedafde49a78c6aeb3
   - Thunderbird Plugin page:
-    [[https://addons.mozilla.org/en-US/thunderbird/addon/flexible-identity/]]
+    [https://addons.mozilla.org/en-US/thunderbird/addon/flexible-identity/](https://addons.mozilla.org/en-US/thunderbird/addon/flexible-identity/)
   - Filename: flexible_identity-1.0.4-sm+tb.xpi
 - Reply as Original Recipient version 1.0: Mozilla Public License, version 2.0
-  - License text: [LICENSE-mpl-2.0.txt](https://github.com/sd2k9/cusedar/blob/master/LICENSE-mpl-2.0.txt)
+  - License text: [LICENSE-mpl-2.0.txt](https://raw.githubusercontent.com/sd2k9/cusedar/master/LICENSE-mpl-2.0.txt)
   - Imported with commit 71902534890f1add9646027c2a714cafd840aa89
-  - Homepage: [[http://blog.qiqitori.com/?p=194]]
+  - Homepage: [http://blog.qiqitori.com/?p=194](http://blog.qiqitori.com/?p=194)
   - Thunderbird Plugin page:
-    [[https://addons.mozilla.org/en-US/thunderbird/addon/reply-as-original-recipient/]]
+    [https://addons.mozilla.org/en-US/thunderbird/addon/reply-as-original-recipient/](https://addons.mozilla.org/en-US/thunderbird/addon/reply-as-original-recipient/)
   - Filename: reply_as_original_recipient-1.0-tb.xpi
 
 All changes afterwards are dual-licensed under both
@@ -107,7 +107,7 @@ Author
 - Reply as Original Recipient  
   Qiqitori
 - Custom Sender Address and Reply  
-  Copyright (C) 2017-2018 Robert Lange ([[https://sethdepot.org/site/RoLa.html]])
+  Copyright (C) 2017-2019  [Robert Lange](https://sethdepot.org/site/RoLa.html)
 
 If you have any questions, just write me or create an issue (see below).
 
@@ -116,8 +116,8 @@ If you have any questions, just write me or create an issue (see below).
 Web Links
 ---------
 - Homepage  
-  [[https://sd2k9.github.io/cusedar/]]
+  [https://sd2k9.github.io/cusedar/](https://sd2k9.github.io/cusedar/)
 - Repository  
-  [[https://github.com/sd2k9/cusedar]]
+  [https://github.com/sd2k9/cusedar](https://github.com/sd2k9/cusedar)
 - Issue tracker  
-  [[https://github.com/sd2k9/cusedar/issues]]
+  [https://github.com/sd2k9/cusedar/issues](https://github.com/sd2k9/cusedar/issues)
