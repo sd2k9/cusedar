@@ -19,43 +19,14 @@
       <Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
         <em:minVersion>2.6</em:minVersion>
-        <em:maxVersion>2.7.*</em:maxVersion>
+        <em:maxVersion>2.60.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 
     <em:name>Custom Sender Address and Reply</em:name>
     <em:creator>sd2k9</em:creator>
+    <em:homepageURL>https://sd2k9.github.io/cusedar/</em:homepageURL>
     <em:description>Select sender mail address based on the recipient and reply with the same address</em:description>
-
-    <em:localized>
-        <Description>
-            <em:name>Custom Sender Address and Reply</em:name>
-            <em:locale>ru</em:locale>
-            <em:description>Заполняет поле "от" при отправке письма на основе списка адресатов</em:description>
-            <em:creator>sd2k9</em:creator>
-        </Description>
-    </em:localized>
-
-    <em:localized>
-        <Description>
-            <em:name>Custom Sender Address and Reply</em:name>
-            <em:locale>fr-FR</em:locale>
-            <em:description>Predefinessez ou sélectionnez manuellement les adresses courriel qui seront
-utilisées en fonction de vos destinataires.</em:description>
-            <em:creator>sd2k9</em:creator>
-        </Description>
-    </em:localized>
-
-    <em:localized>
-        <Description>
-            <em:name>Custom Sender Address and Reply</em:name>
-            <em:locale>de-DE</em:locale>
-            <em:description>Wählt beim Versenden einer E-Mail die Absenderadresse nach vordefinierten 
-Regeln aus.</em:description>
-            <em:creator>sd2k9</em:creator>
-        </Description>
-    </em:localized>
-
 
     <em:optionsURL>chrome://cusedar/content/options.xul</em:optionsURL>
     <em:iconURL>chrome://cusedar/skin/icon.png</em:iconURL>
