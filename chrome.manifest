@@ -1,8 +1,5 @@
 content cusedar             chrome/content/
 locale  cusedar en-US       chrome/locale/en-US/
-locale  cusedar ru-RU       chrome/locale/ru-RU/
-locale  cusedar fr-FR       chrome/locale/fr-FR/
-locale  cusedar de-DE       chrome/locale/de-DE/
 skin    cusedar classic/1.0 chrome/skin/classic/
 
 overlay	chrome://messenger/content/messengercompose/messengercompose.xul chrome://cusedar/content/compose-overlay.xul
