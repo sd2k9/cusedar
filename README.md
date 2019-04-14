@@ -41,21 +41,24 @@ So expect trouble when you have both extensions installed, which is
 strongly discouraged.
 
 ### Install from Thunderbird Add-On Site
-Release of this extension on the Thunderbird add-on site is still
-under the way.  
-When that' done, this is the most convenient method to install
-this extension and keep it up-to-date.
+Find it here:  
+https://addons.thunderbird.net/en-US/thunderbird/addon/custom-sender-address-reply/
 
 ### Download prepared package
-You can fetch the prepared package from the following link:  
-_The path will soon appear here, please come back later._
+Head over to the release page:  
+[https://github.com/sd2k9/cusedar/releases](https://github.com/sd2k9/cusedar/releases)
+
+And fetch the provided xpi.bin file.  
+After you renamed it to .xpi (otherwise Firefox blocks the download)
+you can install it manually in Thunderbird (Add-On Manager, Install Add-On from file).
+
 
 ### Create own package
 1. Download or clone this extension
 1. Change into the directory
 1. (Optional when you made local changes)  
    git clean -i -x
-1. zip -r -9 ../cusedar-1.0.0-tb.xpi . --exclude .git/\*
+1. zip -r -9 ../cusedar-VERSIONNUMBER-tb.xpi . \-\-exclude .git/\\*
 
 ### Local installation
 For a local installation create a file named  
