@@ -42,7 +42,7 @@ strongly discouraged.
 
 ### Install from Thunderbird Add-On Site
 Find it here:  
-https://addons.thunderbird.net/en-US/thunderbird/addon/custom-sender-address-reply/
+[https://addons.thunderbird.net/en-US/thunderbird/addon/custom-sender-address-reply/](https://addons.thunderbird.net/en-US/thunderbird/addon/custom-sender-address-reply/)
 
 ### Download prepared package
 Head over to the release page:  
